@@ -43,24 +43,23 @@ public class WishlistRepo {
 
         // Fills in the Wishlist to be returned without wishes
         while(wishListRes.next()) {
-            wishlists.add(new Wishlist(wishListRes.getString(1),wishListRes.getString(2), null));
+            wishlists.add(new Wishlist(wishListRes.getString(1),wishListRes.getString(2), new ArrayList<>()));
         }
 
-        int prevId = 0;
-        int currentWishlist = 0;
-        // Puts
+        int prevId = 1;
+        int currentWishlist = 1;
+        // Puts wishes into wishlists
         while(wishRes.next()){
+            wishes.add(new Wish(wishRes.getString(3), wishRes.getString(4)));
 
-            wishes.add(new Wish(wishRes.getString(2), wishRes.getString(3)));
-
-            if (wishRes.getInt(1) != prevId) {
+            if (wishRes.getInt(2) != prevId) {
                 wishlists.get(currentWishlist).setWishlist(wishes);
-                wishlist = new Wishlist(wishListRes.getString(1), wishListRes.getString(2), wishes);
+                wishlist = new Wishlist(wishListRes.getString(2), wishListRes.getString(3), wishes);
                 System.out.println("Wishlist added to wishlist arraylist!");
                 currentWishlist++;
                 wishes = new ArrayList<>();
             }
-            prevId = wishRes.getInt(1);
+            prevId = wishRes.getInt(2);
         }
         return wishlists;
     }
