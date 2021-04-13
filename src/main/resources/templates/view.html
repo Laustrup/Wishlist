@@ -8,9 +8,9 @@
     <h1>List of wishes:</h1>
 
     <ul th:each="list : ${list}">
-        <li th:text="${list.name}"></li>
-        <li th:text="${list.author}"></li>
-        <li th:text="${list.wishlist}"></li>
+        <li th:text="${list.getName}"></li>
+        <li th:text="${list.getAuthor}"></li>
+        <li th:text="${list.getWishlist}"></li>
     </ul>
 
 </main>
