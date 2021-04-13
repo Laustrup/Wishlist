@@ -2,8 +2,8 @@ package kea_pal_gruppe_3.mini_projekt.models;
 
 public class Wish {
 
-    String wish;
-    String url;
+    private String wish;
+    private String url;
 
     public Wish (String wish, String url){
 
