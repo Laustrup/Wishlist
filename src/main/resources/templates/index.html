@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Make a wish</title>
@@ -16,9 +16,7 @@
             </segment>
         </main>
         <footer>
-            <segment>
-                <p>Establish 2021 and Created by Anton, Laust og Patrick.</p>
-            </segment>
+            <footer th:replace="fragments/footer.html"></footer>
         </footer>
     </body>
 </html>
