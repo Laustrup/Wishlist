@@ -1,3 +1,4 @@
+
 package kea_pal_gruppe_3.mini_projekt;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;

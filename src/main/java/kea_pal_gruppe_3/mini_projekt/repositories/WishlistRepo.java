@@ -32,8 +32,8 @@ public class WishlistRepo {
 
     private ArrayList<Wishlist> talkToDatabase(ArrayList<Wish> wishes, ArrayList<Wishlist> wishlists) throws SQLException {
         // Communicates with MySQL
-        Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
-                "remote", "1234");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/miniprojekt",
+                "root", "Hemmeligt");
         // Makes an satement to each tables and gather the results into resultsets
         PreparedStatement wishlistTable = connection.prepareStatement("SELECT * FROM wishlist;");
         ResultSet wishListRes = wishlistTable.executeQuery();
