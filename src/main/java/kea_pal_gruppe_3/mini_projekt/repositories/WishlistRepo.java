@@ -85,8 +85,8 @@ public class WishlistRepo {
     }
 
     private Wishlist setDatabase(Wishlist newWishlist, String name, String author, ArrayList<Wish> wishlist) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
-                "remote", "1234");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/miniprojekt",
+                "root", "Hemmeligt");
         PreparedStatement wishListStatement = connection.prepareStatement("INSERT INTO wishlist(name, author)" +
                 " VALUES (" + name + ", " + author + ");");
         wishListStatement.executeUpdate();
