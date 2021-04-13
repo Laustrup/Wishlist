@@ -7,7 +7,7 @@
 
     <h1>List of wishes:</h1>
 
-    <ul th:each="wishlist : ${wishlist}">
+    <ul th:each="list : ${list}">
         <li th:text="${list.name}"></li>
         <li th:text="${list.author}"></li>
         <li th:text="${list.wishlist}"></li>
