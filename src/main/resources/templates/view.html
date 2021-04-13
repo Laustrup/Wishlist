@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/head.html(currentPage='Social Media Star - Dashboard 📈')"></head>
+<head th:replace="fragments/head.html(currentPage='view lists')"></head>
 <body>
+<header th:replace="fragments/footer.html"></header>
+<main>
 
+    <h1>List of wishes:</h1>
 
+    <ul th:each="wishlist : ${wishlist}">
+        <li th:text="${list.name}"></li>
+        <li th:text="${list.author}"></li>
+        <li th:text="${list.wishlist}"></li>
+    </ul>
 
-
-
-
-
+</main>
 <footer th:replace="fragments/footer.html"></footer>
-
 </body>
 </html>

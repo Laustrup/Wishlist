@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Wishlist {
 
     private String name;
+    private String author;
     private ArrayList<Wish> wishlist = new ArrayList<>();
 
-    public Wishlist(String name, ArrayList<Wish> wishlist) {
+    public Wishlist(String name, String author, ArrayList<Wish> wishlist) {
         this.name = name;
+        this.author = author;
         this.wishlist = wishlist;
     }
 }
