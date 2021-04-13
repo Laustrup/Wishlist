@@ -12,4 +12,11 @@ public class Wish {
     }
 
 
+    public String getWish() {
+        return wish;
+    }
+
+    public String getUrl() {
+        return url;
+    }
 }

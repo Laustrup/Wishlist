@@ -24,12 +24,16 @@ public class WishlistRepo {
         catch(SQLException e){
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
         }
+        catch(Exception e) {
+            System.out.println("\nSomething went wrong at talkToDataBase...");
+        }
         return wishlists;
     }
 
     private ArrayList<Wishlist> talkToDatabase(ArrayList<Wish> wishes, ArrayList<Wishlist> wishlists) throws SQLException {
         // Communicates with MySQL
-        Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt", "remote", "1234");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+                "remote", "1234");
         // Makes an satement to each tables and gather the results into resultsets
         PreparedStatement wishlistTable = connection.prepareStatement("SELECT * FROM wishlist;");
         ResultSet wishListRes = wishlistTable.executeQuery();
@@ -67,25 +71,34 @@ public class WishlistRepo {
         Wishlist newWishlist = null;
 
         try {
-            // Communicates with MySQL
-            Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt", "remote", "1234");
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO wishlist(EMPNO, ENAME, JOB, MGR," +
-                    "HIREDATE, SAL, COMM, DEPTNO)" +
-                    " VALUES (" + empNo + ", '" + eName + "', '" + job + "', " + mgr +
-                    ", '" + hireDate + "', " + sal + ", " + comm + ", " + deptno +");");
-            statement.executeUpdate();
-
-            // Creates an employee from the temp employee to be returned
-            newEmployee = new Employee(Integer.parseInt(empNo),Integer.parseInt(mgr),Integer.parseInt(sal),Integer.parseInt(comm),
-                    Integer.parseInt(deptno),eName,job,hireDate);
-            System.out.println("Employee added to database!");
-
+            setDatabase(newWishlist,name,author,wishlist);
         }
         catch (SQLException e){
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
         }
+        catch(Exception e) {
+            System.out.println("\nSomething went wrong at setDataBase...");
+        }
 
         // returns an Employee based on the infos, in order to show the user via. model, the created employee.
-        return newEmployee;
+        return newWishlist;
+    }
+
+    private Wishlist setDatabase(Wishlist newWishlist, String name, String author, ArrayList<Wish> wishlist) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+                "remote", "1234");
+        PreparedStatement wishListStatement = connection.prepareStatement("INSERT INTO wishlist(name, author)" +
+                " VALUES (" + name + ", " + author + ");");
+        wishListStatement.executeUpdate();
+        System.out.println("Wishlist added to database!");
+
+        for (int i = 0; i < wishlist.size(); i++) {
+            PreparedStatement wishStatement = connection.prepareStatement("INSERT INTO wish(wish, url)" +
+                    " VALUES (" + wishlist.get(i).getWish() + ", " + wishlist.get(i).getUrl() + ");");
+            wishListStatement.executeUpdate();
+            System.out.println("Wish added to database!");
+        }
+
+        return new Wishlist(name,author,wishlist);
     }
 }
