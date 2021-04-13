@@ -21,4 +21,12 @@ public class Wishlist {
     public void setWishlist(ArrayList<Wish> wishlist) {
         this.wishlist = wishlist;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
