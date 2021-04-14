@@ -29,4 +29,5 @@ public class Wishlist {
     public String getName() {
         return name;
     }
+
 }
