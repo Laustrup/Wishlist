@@ -29,4 +29,9 @@ public class Wishlist {
     public String getName() {
         return name;
     }
+
+    public Wishlist getObject(){
+        return Wishlist;
+    }
+
 }
