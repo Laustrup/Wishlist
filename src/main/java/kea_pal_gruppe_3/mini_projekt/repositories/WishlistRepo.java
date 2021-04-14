@@ -31,36 +31,32 @@ public class WishlistRepo {
     }
 
     private ArrayList<Wishlist> talkToDatabase(ArrayList<Wish> wishes, ArrayList<Wishlist> wishlists) throws SQLException {
+
         // Communicates with MySQL
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/miniprojekt",
                 "root", "Hemmeligt");
-        // Makes an satement to each tables and gather the results into resultsets
-        PreparedStatement wishlistTable = connection.prepareStatement("SELECT * FROM wishlist;");
-        ResultSet wishListRes = wishlistTable.executeQuery();
+        // Makes an statement to each tables and gather the results into resultsets
 
-        PreparedStatement wishTable = connection.prepareStatement("SELECT * FROM wish;");
-        ResultSet wishRes = wishTable.executeQuery();
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM wishlist\n" +
+                "INNER JOIN wish\n" +
+                "ON wishlist.id_wishlist = wish.id_wishlist;");
+        System.out.println("Statement prepared...");
+        ResultSet res = statement.executeQuery();
+        System.out.println("Result gathered...");
 
+        int prev = 1;
         // Fills in the Wishlist to be returned without wishes
-        while(wishListRes.next()) {
-            wishlists.add(new Wishlist(wishListRes.getString(1),wishListRes.getString(2), new ArrayList<>()));
-        }
+        while(res.next()) {
+            wishes.add(new Wish(res.getString(6),res.getString(7)));
+            System.out.println();
 
-        int prevId = 1;
-        int currentWishlist = 1;
-        // Puts wishes into wishlists
-        while(wishRes.next()){
-            wishes.add(new Wish(wishRes.getString(3), wishRes.getString(4)));
-
-            if (wishRes.getInt(2) != prevId) {
-                wishlists.get(currentWishlist).setWishlist(wishes);
-                wishlist = new Wishlist(wishListRes.getString(2), wishListRes.getString(3), wishes);
-                System.out.println("Wishlist added to wishlist arraylist!");
-                currentWishlist++;
+            if (res.getInt(1) > prev) {
+                wishlists.add(new Wishlist(res.getString(2), res.getString(3), wishes));
                 wishes = new ArrayList<>();
             }
-            prevId = wishRes.getInt(2);
+            prev = res.getInt(1);
         }
+
         return wishlists;
     }
 
