@@ -30,8 +30,4 @@ public class Wishlist {
         return name;
     }
 
-    public Wishlist getObject(){
-        return Wishlist;
-    }
-
 }
