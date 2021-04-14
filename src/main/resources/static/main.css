@@ -1,0 +1,149 @@
+/* --- META --- */
+@font-face {
+    font-family: 'artf';
+    src: url('ArticulatCF-DemiBold.woff2') format('woff2'),
+    url('ArticulatCF-DemiBold.woff') format('woff');
+}
+
+html {
+    font-family: artf, Fallback, sans-serif;
+}
+
+/* --- BODY --- */
+.grid-container {
+
+    /* colours */
+    background: seashell;
+
+    /* container dimensions */
+    max-height: 650px;
+    max-width: 700px;
+
+    /* override user agent stylehseet */
+    margin: 5em auto;
+
+
+
+    /* grid stuff */
+    display: grid;
+
+    grid-template-columns: 25px 185px 1fr;
+    grid-template-rows: 25px 85px 1fr 1fr 50px;
+    grid-template-areas:
+    "i2 . ."
+    ". h h"
+    ". a m"
+    ". s m"
+    ". i f";
+}
+
+/* --- HEADER --- */
+.header {
+    grid-area: h;
+    border: 2px solid black;
+    border-right: 4px solid black;
+}
+
+.header h1 {
+    vertical-align: center;
+    padding-left: 20px;
+}
+
+/* --- MAIN --- */
+.main {
+    grid-area: m;
+    border: 2px none black;
+    border-right: 4px solid;
+    border-left-style: solid;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    text-align: justify;  /* make text fill out */
+    overflow: auto; /* make text 'shrink' if too small */
+}
+
+/* --- FOOTER --- */
+.footer {
+    grid-area: f;
+    border-right: 4px solid black;
+    border-bottom: 4px solid black;
+    border-left: 2px solid black;
+    border-top: 2px solid black;
+
+    text-align: center;
+    color: #a09f9f;
+    font-size: 12px;
+}
+
+/* --- ASIDE --- */
+.aside {
+    grid-area: a;
+    overflow: hidden;
+    border: 2px solid black;
+    border-top: none;
+    border-right: none;
+}
+
+.aside img {
+    width: auto;
+    height: 100%;
+}
+/* --- SOCIAL --- */
+.social {
+    grid-area: s;
+    border: 2px none black;
+    border-left-style: solid;
+
+    text-align: left;
+    padding: 25px;
+}
+
+.social * {
+    /* override stuff */
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    list-style: none;
+    color: black;
+    text-decoration: none;
+
+    padding-bottom: 5px;
+}
+
+.social a:hover{
+    background-color: black;
+    color: white;
+    transition: background-color .5s;
+}
+
+/* --- FILLER --- */
+.filler {
+    grid-area: i;
+    overflow: hidden;
+    border: 2px solid black;
+    border-right: none;
+    border-bottom: 4px solid black;;
+}
+
+.filler2 {
+    grid-area: i2;
+    outline: 2px dashed black;
+    text-align: center;
+    vertical-align: center;
+
+}
+
+.filler2 p {
+    margin: 0px;
+   padding-top: 2px;
+}
+
+/* --- MISC. --- */
+
+
+
+
+
+
+
+

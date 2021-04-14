@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/head.html(currentPage='view lists')"></head>
+<head th:replace="fragments/head.html(currentPage='View')"></head>
 <body>
-<header th:replace="fragments/footer.html"></header>
+<header th:replace="fragments/header.html"></header>
 <main>
+
 
     <h1>List of wishes:</h1>
 
@@ -12,6 +13,7 @@
         <li th:text="${list.getAuthor}"></li>
         <li th:text="${list.getWishlist}"></li>
     </ul>
+
 
 </main>
 <footer th:replace="fragments/footer.html"></footer>
