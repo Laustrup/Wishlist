@@ -30,4 +30,14 @@ public class Wishlist {
         return name;
     }
 
+    public String printWishes() {
+
+        String res = new String();
+
+        for (int i = 0; i < wishlist.size(); i++) {
+            res += wishlist.get(i).getWish() + "\n";
+        }
+        return res;
+    }
+
 }

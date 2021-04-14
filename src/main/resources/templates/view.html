@@ -6,15 +6,16 @@
 <main>
 
 
-    <h1>List of wishes:</h1>
 
+    <h1>List of wishes:</h1>
     <a href="wish-overview.html">
-    <ul th:each="list : ${list}">
-        <li th:text="${list.getName}"></li>
-        <li th:text="${list.getAuthor}"></li>
-        <li th:text="${list.getWishlist}"></li>
-    </ul>
+        <ul th:each="list : ${list}">
+            <li th:text="${list.getName}"></li>
+            <li th:text="${list.getAuthor}"></li>
+            <li th:text="${list.printWishes}"></li>
+        </ul>
     </a>
+
 
 
 </main>
