@@ -40,23 +40,35 @@ public class WishlistRepo {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM wishlist\n" +
                 "INNER JOIN wish\n" +
                 "ON wishlist.id_wishlist = wish.id_wishlist;");
-        System.out.println("Statement prepared...");
+        System.out.println("\nStatement prepared...");
         ResultSet res = statement.executeQuery();
-        System.out.println("Result gathered...");
+        System.out.println("Result gathered...\n");
 
         int prev = 1;
+        Wishlist wishToAdd = new Wishlist(null,null,null);
         // Fills in the Wishlist to be returned without wishes
+        gatherFromDatabase(res,wishes,wishlists,prev,wishToAdd);
+
+        return wishlists;
+    }
+
+    private ArrayList<Wishlist> gatherFromDatabase(ResultSet res, ArrayList<Wish> wishes, ArrayList<Wishlist> wishlists,
+                                        int prev, Wishlist wishToAdd) throws SQLException {
         while(res.next()) {
-            wishes.add(new Wish(res.getString(6),res.getString(7)));
-            System.out.println();
-
             if (res.getInt(1) > prev) {
-                wishlists.add(new Wishlist(res.getString(2), res.getString(3), wishes));
+                wishlists.add(wishToAdd);
+                System.out.println("\nWishlist updated with wishes... " +  " - " + wishlists.get(prev).toString());
                 wishes = new ArrayList<>();
+                System.out.println("Wishes zeroed...");
             }
-            prev = res.getInt(1);
-        }
 
+            prev = res.getInt(1);
+            System.out.println("Previous = " + prev + "\n");
+
+            wishes.add(new Wish(res.getString(6),res.getString(7)));
+            System.out.println("Wish added to wishlist... " +res.getString(6) + " - " + res.getString(7));
+            wishToAdd = new Wishlist(res.getString(2), res.getString(3), wishes);
+        }
         return wishlists;
     }
 
