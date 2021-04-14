@@ -1,28 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create a wish</title>
-</head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/head.html(currentPage='Create wish')"></head>
 <body>
+<header th:replace="fragments/footer.html"></header>
+<main>
+
 
     <form action="/get_wish" method="post">
-    <main class="the_wish">
 
         <div class="wish_name_section">
-        <label for="wish_name">What is your wish?</label>
-        <input type="text" id="wish_name" name="wish_name" placeholder="Your wish">
+            <label for="wish_name">What is your wish?</label>
+            <input type="text" id="wish_name" name="wish_name" placeholder="Your wish">
         </div>
 
         <div class="wish_url_section">
-        <label for="wish_url">Do you have a URL to yor wish?</label>
-        <input type="text" id="wish_url" name="wish_url" placeholder="Wish URL">
+            <label for="wish_url">Do you have a URL to yor wish?</label>
+            <input type="text" id="wish_url" name="wish_url" placeholder="Wish URL">
         </div>
-
         <button type="submit">Add wish</button>
-
-    </main>
     </form>
 
+</main>
+<footer th:replace="fragments/footer.html"></footer>
 </body>
 </html>
