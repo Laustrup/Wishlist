@@ -34,8 +34,8 @@ public class WishlistRepo {
     private ArrayList<Wishlist> talkToDatabase(ArrayList<Wish> wishes, ArrayList<Wishlist> wishlists) throws SQLException {
 
         // Communicates with MySQL
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/miniprojekt",
-                "root", "Hemmeligt");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+                "remote", "1234");
         // Makes an statement to each tables and gather the results into resultsets
 
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM wishlist\n" +
@@ -83,7 +83,7 @@ public class WishlistRepo {
             //Before nextline, the following values are kept of this line
             name = res.getString(2);
             author = res.getString(3);
-            System.out.println("\nName and auhtors = " + name + " - " + author);
+            System.out.println("\nName and authors = " + name + " - " + author);
             prev = res.getInt(1);
             System.out.println("Previous = " + prev + "\n");
         }
@@ -110,8 +110,8 @@ public class WishlistRepo {
     }
 
     private Wishlist setDatabase(Wishlist newWishlist, String name, String author, ArrayList<Wish> wishlist) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/miniprojekt",
-                "root", "Hemmeligt");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+                "remote", "1234");
         PreparedStatement wishListStatement = connection.prepareStatement("INSERT INTO wishlist(name, author)" +
                 " VALUES (" + name + ", " + author + ");");
         wishListStatement.executeUpdate();
