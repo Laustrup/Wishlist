@@ -13,14 +13,14 @@ public class ViewController {
 
 private WishlistRepo test = new WishlistRepo();
 
-    @GetMapping("/view")
+    @GetMapping("/view.html")
     public String renderView(Model model) {
 
         ArrayList<Wishlist> allWishLists = test.getAllWishlists();
 
         model.addAttribute("list",allWishLists);
 
-        return "view";
+        return "view.html";
     }
 
 

@@ -25,7 +25,8 @@ public class WishlistRepo {
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
         }
         catch(Exception e) {
-            System.out.println("\nSomething went wrong at talkToDataBase...");
+            System.out.println("\nSomething went wrong at talkToDataBase... " + e.getMessage() + "\n");
+            e.printStackTrace();
         }
         return wishlists;
     }
@@ -54,20 +55,30 @@ public class WishlistRepo {
 
     private ArrayList<Wishlist> gatherFromDatabase(ResultSet res, ArrayList<Wish> wishes, ArrayList<Wishlist> wishlists,
                                         int prev, Wishlist wishToAdd) throws SQLException {
+
+        String name = new String();
+        String author = new String();
+
         while(res.next()) {
             if (res.getInt(1) > prev) {
+                wishToAdd = new Wishlist(name, author, wishes);
+                System.out.println("\nwishToAdd created!");
+
                 wishlists.add(wishToAdd);
-                System.out.println("\nWishlist updated with wishes... " +  " - " + wishlists.get(prev).toString());
+                System.out.println("\nWishlist updated with wishes!");
                 wishes = new ArrayList<>();
-                System.out.println("Wishes zeroed...");
+                System.out.println("Wishes zeroed!\n");
             }
 
+            wishes.add(new Wish(res.getString(6),res.getString(7)));
+            System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
+
+            //Before nextline, the following values are kept of this line
+            name = res.getString(2);
+            author = res.getString(3);
+            System.out.println("\nName and auhtors = " + name + " - " + author);
             prev = res.getInt(1);
             System.out.println("Previous = " + prev + "\n");
-
-            wishes.add(new Wish(res.getString(6),res.getString(7)));
-            System.out.println("Wish added to wishlist... " +res.getString(6) + " - " + res.getString(7));
-            wishToAdd = new Wishlist(res.getString(2), res.getString(3), wishes);
         }
         return wishlists;
     }
