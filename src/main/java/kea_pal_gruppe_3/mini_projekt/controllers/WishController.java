@@ -15,10 +15,27 @@ public class WishController {
 
     private WishlistRepo wishlistRepo = new WishlistRepo();
 
+
+    @GetMapping("/create_wish_info.html")
+    public String createWishInfo(){
+        return "create_wish_info.html";
+    }
+
     @GetMapping("/create_wish.html")
     public String wishForm(){
 
         return "create_wish.html";
+    }
+
+    @PostMapping("/get_wish_info")
+    public String getWishInfo(@RequestParam (name = "wishlist_name") String wishlistName,
+                              @RequestParam (name = "author_name") String authorName,
+                              RedirectAttributes redirect){
+
+        redirect.addAttribute("wishlist_name", wishlistName);
+        redirect.addAttribute("author_name", authorName);
+
+        return "redirect:/wish_succes.html";
     }
 
     @PostMapping("/get_wish")
@@ -33,7 +50,8 @@ public class WishController {
     }
 
     @GetMapping("/wish_succes.html")
-    public String wishSucces(@RequestParam String wishName, @RequestParam String wishURL, Model model){
+    public String wishSucces(@RequestParam String wishName, @RequestParam String wishURL,
+                             Model model){
 
         model.addAttribute("wish_name", wishName);
         model.addAttribute("wish_url", wishURL);
