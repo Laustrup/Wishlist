@@ -26,8 +26,6 @@ public class WishController {
                                   @RequestParam (name = "wish_url") String wishURL,
                                   RedirectAttributes redirect){
 
-        //Wishlist wishlist = wishlistRepo.putInWishlist(wishName,wishURL,);
-
         redirect.addAttribute("wishName",wishName);
         redirect.addAttribute("wishURL",wishURL);
 
@@ -41,5 +39,10 @@ public class WishController {
         model.addAttribute("wish_url", wishURL);
 
         return "wish_succes.html";
+    }
+
+    @PostMapping("/creating_wish")
+    public String creatingWish() {
+        return "wish_created.html";
     }
 }
