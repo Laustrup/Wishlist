@@ -40,7 +40,7 @@ public class WishAdder {
         if (wishlistId != -1) {
             for (int i = 0; i < wishlist.size(); i++) {
                 statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
-                        " VALUES (" + wishlistId + "\"" + wishlist.get(i).getWish() + "\", \"" + wishlist.get(i).getUrl() + "\");");
+                        " VALUES (" + wishlistId + ",\"" + wishlist.get(i).getWish() + "\", \"" + wishlist.get(i).getUrl() + "\");");
                 statement.executeUpdate();
                 System.out.println("Wish added to database!");
             }
