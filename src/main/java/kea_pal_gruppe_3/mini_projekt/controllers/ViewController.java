@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Controller
 public class ViewController {
 
-private WishlistRepo wishlistRepo = new WishlistRepo();
+    private WishlistRepo wishlistRepo = new WishlistRepo();
 
 
     @GetMapping("/view")
@@ -20,26 +20,28 @@ private WishlistRepo wishlistRepo = new WishlistRepo();
 
         ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 
-        model.addAttribute("list",allWishLists);
+        model.addAttribute("list", allWishLists);
 
         return "view";
     }
 
-    /*
+
     @GetMapping("/wishlist/{id}")
-    @ResponseBody
-    public String getWishlist(@PathVariable("id") int id) {
-        return wishlistService.getWishlist(id).toString();
-    }*/
+    public String getWishlist(@PathVariable("id") int id, Model model) {
 
-    @GetMapping("/wish-overview")
-    public String showOverview(Model model){
-       // ArrayList<Wishlist> wishlists = test.getAllWishlists();
+       // return wishlistService.getWishlist(id).toString();
 
-       // model.addAttribute("list", wishlists.get(1));
+        ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 
+        Wishlist tmp = null;
+
+        for (int i = 0; i < allWishLists.size(); i++) {
+            if (allWishLists.get(i).getId_wishlist() == id)
+                tmp = allWishLists.get(i);
+        }
+
+        model.addAttribute("list", tmp);
         return "wish-overview";
+
     }
-
-
 }

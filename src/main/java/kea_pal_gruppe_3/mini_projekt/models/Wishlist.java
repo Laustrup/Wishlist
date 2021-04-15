@@ -47,4 +47,7 @@ public class Wishlist {
         return res;
     }
 
+    public int getId_wishlist() {
+        return idWishlist;
+    }
 }
