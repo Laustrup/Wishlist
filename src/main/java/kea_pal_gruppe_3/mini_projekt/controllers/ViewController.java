@@ -25,11 +25,12 @@ private WishlistRepo wishlistRepo = new WishlistRepo();
         return "view.html";
     }
 
+    /*
     @GetMapping("/wishlist/{id}")
     @ResponseBody
     public String getWishlist(@PathVariable("id") int id) {
         return wishlistService.getWishlist(id).toString();
-    }
+    }*/
 
 
 }
