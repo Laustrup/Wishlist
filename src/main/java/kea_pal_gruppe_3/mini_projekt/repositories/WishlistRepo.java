@@ -13,6 +13,8 @@ public class WishlistRepo {
     private PreparedStatement statement;
     private ResultSet res;
 
+    private int wishlistId;
+
     public ArrayList<Wishlist> getAllWishlists() {
 
         // An arraylist to gather every wishes pr. wishlist into wishlist
@@ -52,7 +54,7 @@ public class WishlistRepo {
                                               ResultSet res) throws SQLException {
 
         int prev = 1;
-        Wishlist wishToAdd = new Wishlist(null,null,null);
+        Wishlist wishToAdd = new Wishlist(0, null,null,null);
         // Fills in the Wishlist to be returned without wishes
         gatherFromDatabase(res,wishes,wishlists,prev,wishToAdd);
 
@@ -68,10 +70,10 @@ public class WishlistRepo {
         while(res.next()) {
             if (res.getInt(1) > prev || res.isLast()) {
                 if (res.isLast()) {
-                    wishes.add(new Wish(res.getString(6),res.getString(7)));
+                    wishes.add(new Wish(res.getInt(4), res.getString(6),res.getString(7)));
                     System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
                 }
-                wishToAdd = new Wishlist(name, author, wishes);
+                wishToAdd = new Wishlist(res.getInt(1),name, author, wishes);
                 System.out.println("\nwishToAdd created!");
 
                 wishlists.add(wishToAdd);
@@ -81,7 +83,7 @@ public class WishlistRepo {
             }
 
             if (!res.isLast()) {
-                wishes.add(new Wish(res.getString(6),res.getString(7)));
+                wishes.add(new Wish(res.getInt(4), res.getString(6),res.getString(7)));
                 System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
             }
 
@@ -117,10 +119,6 @@ public class WishlistRepo {
         return newWishlist;
     }
 
-    public ResultSet getRes() {
-        return res;
-    }
-
     public Wishlist setDatabase(String name, String author,
                                 ArrayList<Wish> wishlist, Connection connection,
                                 PreparedStatement statement) throws SQLException {
@@ -129,7 +127,7 @@ public class WishlistRepo {
 
         executeUpdateWishes(wishlist,connection,statement);
 
-        return new Wishlist(name,author,wishlist);
+        return new Wishlist(wishlistId,name,author,wishlist);
     }
 
     private void executeUpdateWishlist(String name, String author, Connection connection,
@@ -145,15 +143,14 @@ public class WishlistRepo {
     private void executeUpdateWishes(ArrayList<Wish> wishes,Connection connection,
                                      PreparedStatement statement) throws SQLException {
 
-        int wishlistId = determineId_Wishlist();
+        wishlistId = determineId_Wishlist();
         System.out.println("wishlistId is determined to be " + wishlistId + " and wishes.size() equals " + wishes.size());
 
         if (wishlistId != -1) {
             for (int i = 0; i < wishes.size(); i++) {
                 System.out.println("\nVariables are " + wishes.get(i).getWish() + wishes.get(i).getUrl());
-
                 statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
-                        " VALUES (" + wishlistId + ",\"" + wishes.get(i).getWish() + "\", \"" + wishes.get(i).getUrl() + "\");");
+                        " VALUES (" + wishes.get(i).getIdWish() + ",\"" + wishes.get(i).getWish() + "\", \"" + wishes.get(i).getUrl() + "\");");
                 statement.executeUpdate();
                 System.out.println(wishes.get(i).getWish() + " added to database!");
             }
@@ -169,6 +166,22 @@ public class WishlistRepo {
             if (res.isLast()) {
                 return res.getInt(1);
             }
+        }
+        return -1;
+    }
+
+    public int determineIdWish() {
+
+        try {
+            executeQuerySelectAll();
+            while (res.next()) {
+                if (res.last()) {
+                    return res.getInt(4);
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
         return -1;
     }

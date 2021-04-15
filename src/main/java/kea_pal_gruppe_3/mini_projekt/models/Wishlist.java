@@ -4,15 +4,21 @@ import java.util.ArrayList;
 
 public class Wishlist {
 
-    private int Id_wishlist;
+    private int idWishlist;
     private String name;
     private String author;
     private ArrayList<Wish> wishlist;
 
-    public Wishlist(String name, String author, ArrayList<Wish> wishlist) {
+    public Wishlist(int idWishlist, String name, String author, ArrayList<Wish> wishlist) {
+
+        this.idWishlist = idWishlist;
         this.name = name;
         this.author = author;
         this.wishlist = wishlist;
+    }
+
+    public int getIdWishlist() {
+        return idWishlist;
     }
 
     public ArrayList<Wish> getWishlist() {
