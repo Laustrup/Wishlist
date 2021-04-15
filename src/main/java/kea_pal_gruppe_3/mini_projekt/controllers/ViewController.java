@@ -5,6 +5,8 @@ import kea_pal_gruppe_3.mini_projekt.repositories.WishlistRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
 import java.util.ArrayList;
 
 @Controller
