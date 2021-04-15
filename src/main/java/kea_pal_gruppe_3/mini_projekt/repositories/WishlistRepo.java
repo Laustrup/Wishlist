@@ -112,7 +112,8 @@ public class WishlistRepo {
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
         }
         catch(Exception e) {
-            System.out.println("\nSomething went wrong at setDataBase...");
+            System.out.println("\nSomething went wrong at setDataBase..." + e.getMessage());
+            e.printStackTrace();
         }
 
         // returns an Employee based on the infos, in order to show the user via. model, the created employee.
@@ -162,12 +163,13 @@ public class WishlistRepo {
 
     private int determineId_Wishlist() throws SQLException {
 
-       while(res.next()) {
-            if (res.isLast()) {
-                return res.getInt(1);
+        executeQuerySelectAll();
+           while(res.next()) {
+                if (res.isLast()) {
+                    return res.getInt(1)+1;
+                }
             }
-        }
-        return -1;
+            return -1;
     }
 
     public int calculateNextIdWish(int extraToAdd) {
