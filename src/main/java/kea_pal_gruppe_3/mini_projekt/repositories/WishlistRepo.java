@@ -74,4 +74,8 @@ public class WishlistRepo {
         return newWishlist;
     }
 
+    public ResultSet getRes() {
+        return res;
+    }
+
 }

@@ -2,7 +2,6 @@ package kea_pal_gruppe_3.mini_projekt.controllers;
 //Lavet af Patrick
 
 import kea_pal_gruppe_3.mini_projekt.models.Wish;
-import kea_pal_gruppe_3.mini_projekt.models.Wishlist;
 import kea_pal_gruppe_3.mini_projekt.repositories.WishlistRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 public class WishController {
 
     private WishlistRepo wishlistRepo = new WishlistRepo();
-    private ArrayList<Wish> wishes = new ArrayList<Wish>();
+    private ArrayList<Wish> wishes = new ArrayList<>();
 
 
     @GetMapping("/create_wish.html")
@@ -46,7 +45,6 @@ public class WishController {
         model.addAttribute("author_name", authorName);
 
         wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
-
 
         return "get_wish.html";
     }

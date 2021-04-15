@@ -2,7 +2,6 @@ package kea_pal_gruppe_3.mini_projekt.services;
 
 import kea_pal_gruppe_3.mini_projekt.models.Wish;
 import kea_pal_gruppe_3.mini_projekt.models.Wishlist;
-
 import java.sql.*;
 import java.util.ArrayList;
 
