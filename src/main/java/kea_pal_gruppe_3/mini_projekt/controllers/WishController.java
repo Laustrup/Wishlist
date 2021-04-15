@@ -19,10 +19,10 @@ public class WishController {
     private ArrayList<Wish> wishes = new ArrayList<>();
 
 
-    @GetMapping("/create_wish.html")
+    @GetMapping("/create_wish")
     public String wishForm(){
 
-        return "create_wish.html";
+        return "create_wish";
     }
 
 
@@ -46,7 +46,7 @@ public class WishController {
 
         wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
 
-        return "get_wish.html";
+        return "get_wish";
     }
 
     @PostMapping("/add_wish")
@@ -57,7 +57,7 @@ public class WishController {
 
     }
 
-    @GetMapping("/wish_succes.html")
+    @GetMapping("/wish_succes")
     public String wishSucces(@RequestParam String wishlistName,
                              @RequestParam String wishURL,
                              @RequestParam String wishName,
