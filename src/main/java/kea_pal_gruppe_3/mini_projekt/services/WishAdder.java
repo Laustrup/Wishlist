@@ -2,14 +2,13 @@ package kea_pal_gruppe_3.mini_projekt.services;
 
 import kea_pal_gruppe_3.mini_projekt.models.Wish;
 import kea_pal_gruppe_3.mini_projekt.models.Wishlist;
-import kea_pal_gruppe_3.mini_projekt.repositories.WishlistRepo;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class WishAdder {
 
-    WishlistRepo repo = new WishlistRepo();
+    WishGather wishGather = new WishGather();
 
     public Wishlist setDatabase(String name, String author,
                                 ArrayList<Wish> wishlist, Connection connection,
@@ -51,8 +50,8 @@ public class WishAdder {
     }
 
     private int determineId_Wishlist() throws SQLException {
-        repo.getAllWishlists();
-        ResultSet res = repo.getRes();
+
+        ResultSet res = wishGather.executeQuery();
 
         while(res.next()) {
             if (res.isLast()) {

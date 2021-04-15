@@ -12,7 +12,6 @@ import java.util.ArrayList;
 @Controller
 public class ViewController {
 
-
 private WishlistRepo test = new WishlistRepo();
 
     @GetMapping("/view.html")
@@ -24,6 +23,5 @@ private WishlistRepo test = new WishlistRepo();
 
         return "view.html";
     }
-
 
 }
