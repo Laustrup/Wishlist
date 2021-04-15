@@ -6,9 +6,6 @@
 <main>
 
     <h1>List of wishes:</h1>
-
-
-
         <ul th:each="list : ${list}">
 
             <a th:href="/wishlist/${list.id}">
@@ -17,7 +14,6 @@
             </a>
 
         </ul>
-
 
 </main>
 <footer th:replace="fragments/footer.html"></footer>
