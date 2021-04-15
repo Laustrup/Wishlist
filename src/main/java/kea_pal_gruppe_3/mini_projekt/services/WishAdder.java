@@ -28,20 +28,22 @@ public class WishAdder {
         statement = connection.prepareStatement("INSERT INTO wishlist(name, author)" +
                 " VALUES (\"" + name + "`\", \"" + author + "\");");
         statement.executeUpdate();
-        System.out.println("Wishlist added to database!");
+        System.out.println(name + " added to database!");
     }
 
-    private void executeUpdateWishes(ArrayList<Wish> wishlist,Connection connection,
+    private void executeUpdateWishes(ArrayList<Wish> wishes,Connection connection,
                                      PreparedStatement statement) throws SQLException {
 
         int wishlistId = determineId_Wishlist();
+        System.out.println("wishlistId is determined to be " + wishlistId + " and wishes.size() equals " + wishes.size());
 
         if (wishlistId != -1) {
-            for (int i = 0; i < wishlist.size(); i++) {
+            for (int i = 0; i < wishes.size(); i++) {
+                System.out.println("Variables are " + wishes.get(i).getWish() + wishes.get(i).getUrl());
                 statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
-                        " VALUES (" + wishlistId + ",\"" + wishlist.get(i).getWish() + "\", \"" + wishlist.get(i).getUrl() + "\");");
+                        " VALUES (" + wishlistId + ",\"" + wishes.get(i).getWish() + "\", \"" + wishes.get(i).getUrl() + "\");");
                 statement.executeUpdate();
-                System.out.println("Wish added to database!");
+                System.out.println(wishes.get(i).getWish() + " added to database!");
             }
         }
         else {
@@ -51,7 +53,7 @@ public class WishAdder {
 
     private int determineId_Wishlist() throws SQLException {
 
-        ResultSet res = wishGather.executeQuery();
+        ResultSet res = wishGather.executeQueryOfWishlist();
 
         while(res.next()) {
             if (res.isLast()) {

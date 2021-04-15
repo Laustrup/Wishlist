@@ -28,8 +28,6 @@ public class WishController {
 
     @PostMapping("/get_wish")
     public String getWishFromForm(@RequestParam (name = "wishlist_name") String wishlistName,
-                                  @RequestParam (name = "wish_url") String wishURL,
-                                  @RequestParam (name = "wish_name") String wishName,
                                   @RequestParam (name = "author_name") String authorName,
                                   RedirectAttributes redirect, Model model){
 /*
@@ -40,8 +38,6 @@ public class WishController {
 */
 
         model.addAttribute("wishlist_name", wishlistName);
-        model.addAttribute("wish_url", wishURL);
-        model.addAttribute("wish_name", wishName);
         model.addAttribute("author_name", authorName);
 
         wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
@@ -50,11 +46,13 @@ public class WishController {
     }
 
     @PostMapping("/add_wish")
-    public void addWish(@RequestParam (name = "wish_name") String wishName,
+    public String addWish(@RequestParam (name = "wish_name") String wishName,
                           @RequestParam (name = "wish_url") String wishURL){
 
         wishes.add(new Wish(wishName, wishURL));
+        System.out.println("wish added to wishes in /add_wish");
 
+        return "create_wish.html";
     }
 
     @GetMapping("/wish_succes")
