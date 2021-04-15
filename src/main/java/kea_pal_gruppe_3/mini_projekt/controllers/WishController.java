@@ -50,7 +50,7 @@ public class WishController {
                           @RequestParam (name = "wish_url") String wishURL){
 
         wishes.add(new Wish(wishName, wishURL));
-        System.out.println("wish added to wishes in /add_wish");
+        System.out.println("Wish added to wishes in /add_wish");
 
         return "create_wish.html";
     }
