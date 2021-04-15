@@ -25,8 +25,8 @@ public class ViewController {
     }
 
 
-    @GetMapping("/wishlist/{id}")
-    public String getWishlist(@PathVariable("id") int id, Model model) {
+    @GetMapping("/wishlist/{getId_wishlist}")
+    public String getWishlist(@PathVariable("getId_wishlist") int id, Model model) {
 
        // return wishlistService.getWishlist(id).toString();
 
@@ -39,7 +39,6 @@ public class ViewController {
                 tmp = allWishLists.get(i);
         }
 
-        // this is a comment
         model.addAttribute("list", tmp);
         return "wish-overview";
 
