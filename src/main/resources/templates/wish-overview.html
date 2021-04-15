@@ -5,11 +5,10 @@
 <header th:replace="fragments/header.html"></header>
 <main>
 
+    <h1>th:text=</h1>
 
     <ul th:each="list : ${list}">
-        <li th:text="${list.getName}"></li>
-        <li th:text="${list.getAuthor}"></li>
-        <li th:text="${list.getWishlist}"></li>
+        <li th:text="${list.getWish}"></li>
     </ul>
 
 </main>
