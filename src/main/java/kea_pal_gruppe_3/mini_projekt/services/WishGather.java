@@ -55,15 +55,13 @@ public class WishGather {
         return wishlists;
     }
 
-    public ResultSet executeQuery() throws SQLException {
+    public ResultSet executeQueryOfWishlist() throws SQLException {
         // Communicates with MySQL
         Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
                 "remote", "1234");
         // Makes an statement to each tables and gather the results into resultsets
 
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM wishlist\n" +
-                "INNER JOIN wish\n" +
-                "ON wishlist.id_wishlist = wish.id_wishlist;");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM wishlist;");
         System.out.println("\nStatement prepared...");
         ResultSet res = statement.executeQuery();
         System.out.println("Result gathered...\n");
