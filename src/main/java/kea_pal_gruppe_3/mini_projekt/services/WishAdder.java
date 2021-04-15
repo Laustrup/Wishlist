@@ -39,11 +39,13 @@ public class WishAdder {
 
         if (wishlistId != -1) {
             for (int i = 0; i < wishes.size(); i++) {
-                System.out.println("Variables are " + wishes.get(i).getWish() + wishes.get(i).getUrl());
-                statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
-                        " VALUES (" + wishlistId + ",\"" + wishes.get(i).getWish() + "\", \"" + wishes.get(i).getUrl() + "\");");
-                statement.executeUpdate();
-                System.out.println(wishes.get(i).getWish() + " added to database!");
+                System.out.println("\nVariables are " + wishes.get(i).getWish() + wishes.get(i).getUrl());
+                    connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+                            "remote", "1234");
+                    statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
+                            " VALUES (" + wishlistId + ",\"" + wishes.get(i).getWish() + "\", \"" + wishes.get(i).getUrl() + "\");");
+                    statement.executeUpdate();
+                    System.out.println(wishes.get(i).getWish() + " added to database!");
             }
         }
         else {
