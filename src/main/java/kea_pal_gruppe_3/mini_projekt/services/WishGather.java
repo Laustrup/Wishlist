@@ -2,7 +2,6 @@ package kea_pal_gruppe_3.mini_projekt.services;
 
 import kea_pal_gruppe_3.mini_projekt.models.Wish;
 import kea_pal_gruppe_3.mini_projekt.models.Wishlist;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -54,5 +53,21 @@ public class WishGather {
             System.out.println("Previous = " + prev + "\n");
         }
         return wishlists;
+    }
+
+    public ResultSet executeQuery() throws SQLException {
+        // Communicates with MySQL
+        Connection connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+                "remote", "1234");
+        // Makes an statement to each tables and gather the results into resultsets
+
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM wishlist\n" +
+                "INNER JOIN wish\n" +
+                "ON wishlist.id_wishlist = wish.id_wishlist;");
+        System.out.println("\nStatement prepared...");
+        ResultSet res = statement.executeQuery();
+        System.out.println("Result gathered...\n");
+
+        return res;
     }
 }
