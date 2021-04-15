@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Wishlist {
 
+    private int Id_wishlist;
     private String name;
     private String author;
     private ArrayList<Wish> wishlist;

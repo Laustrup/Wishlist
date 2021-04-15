@@ -5,18 +5,20 @@
 <header th:replace="fragments/header.html"></header>
 <main>
 
-
-
     <h1>List of wishes:</h1>
-    <a href="wish-overview.html">
+
+    <form action="/wish-overview" method="post">
+
         <ul th:each="list : ${list}">
+
             <li th:text="${list.getName}"></li>
             <li th:text="${list.getAuthor}"></li>
-            <li th:text="${list.printWishes}"></li>
+
+            <button name="submit" type="submit" th:value="list.getId">explore wishlist</button>
+
         </ul>
-    </a>
 
-
+    </form>
 
 </main>
 <footer th:replace="fragments/footer.html"></footer>
