@@ -17,6 +17,7 @@ public class WishController {
 
     private WishlistRepo wishlistRepo = new WishlistRepo();
     private ArrayList<Wish> wishes = new ArrayList<>();
+    private Wish wish = new Wish(null,null,false);
 
     private boolean hasMoreWishes = false;
 
@@ -41,6 +42,9 @@ public class WishController {
         model.addAttribute("author_name", authorName);
 
         wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
+
+        //
+        wish.setAddExtraToIdToZero();
         hasMoreWishes = false;
 
         return "get_wish";
