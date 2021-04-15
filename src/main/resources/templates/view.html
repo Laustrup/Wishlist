@@ -7,18 +7,17 @@
 
     <h1>List of wishes:</h1>
 
-    <form action="/wish-overview" method="post">
+
 
         <ul th:each="list : ${list}">
 
+            <a th:href="/wishlist/${list.id}">
             <li th:text="${list.getName}"></li>
             <li th:text="${list.getAuthor}"></li>
-
-            <button name="submit" type="submit" th:value="list.getId">explore wishlist</button>
+            </a>
 
         </ul>
 
-    </form>
 
 </main>
 <footer th:replace="fragments/footer.html"></footer>

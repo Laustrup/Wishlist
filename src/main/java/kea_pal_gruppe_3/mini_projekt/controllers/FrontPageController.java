@@ -6,13 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class FrontPageController {
 
-    @GetMapping("/")
-    public String welcomeSite() {
-        return "index.html";
-    }
-
-    @GetMapping("/index.html")
-    public String goBack() {
+    @GetMapping(value={"/","index"})
+    public String index() {
         return "index.html";
     }
 
