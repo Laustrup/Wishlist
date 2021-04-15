@@ -14,7 +14,6 @@ public class ViewController {
 
 private WishlistRepo wishlistRepo = new WishlistRepo();
 
-
     @GetMapping("/view")
     public String renderView(Model model) {
 

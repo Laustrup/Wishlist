@@ -8,6 +8,8 @@ public class Wish {
     private String wish;
     private String url;
 
+    private int addExtraToId = 0;
+
     private WishlistRepo repo;
 
     public Wish (int idWish, String wish, String url){
@@ -17,13 +19,25 @@ public class Wish {
 
     }
 
-    public Wish (String wish, String url){
+    public Wish (String wish, String url,boolean hasMoreWishes) throws ExceptionInInitializerError {
+
         repo = new WishlistRepo();
 
-        this.idWish = repo.determineIdWish();
+        if (hasMoreWishes) {
+            addExtraToId++;
+        }
+
+        this.idWish = repo.calculateNextIdWish(addExtraToId);
+        if (idWish == -1) {
+            throw new ExceptionInInitializerError();
+        }
         this.wish = wish;
         this.url = url;
 
+    }
+
+    public void setAddExtraToIdToZero() {
+        addExtraToId = 0;
     }
 
     public int getIdWish() {

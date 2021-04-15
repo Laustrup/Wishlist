@@ -18,13 +18,13 @@ public class WishController {
     private WishlistRepo wishlistRepo = new WishlistRepo();
     private ArrayList<Wish> wishes = new ArrayList<>();
 
+    private boolean hasMoreWishes = false;
 
     @GetMapping("/create_wish")
     public String wishForm(){
 
         return "create_wish";
     }
-
 
     @PostMapping("/get_wish")
     public String getWishFromForm(@RequestParam (name = "wishlist_name") String wishlistName,
@@ -41,6 +41,7 @@ public class WishController {
         model.addAttribute("author_name", authorName);
 
         wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
+        hasMoreWishes = false;
 
         return "get_wish";
     }
@@ -49,8 +50,17 @@ public class WishController {
     public String addWish(@RequestParam (name = "wish_name") String wishName,
                           @RequestParam (name = "wish_url") String wishURL){
 
-        wishes.add(new Wish(wishName, wishURL));
-        System.out.println("Wish added to wishes in /add_wish");
+        System.out.println("Arrived in addWish");
+
+        try {
+            wishes.add(new Wish(wishName, wishURL,hasMoreWishes));
+            hasMoreWishes = true;
+            System.out.println("Wish added to wishes in /add_wish!");
+        }
+        catch (ExceptionInInitializerError e) {
+            System.out.println("Couldn't automatically make idWish...");
+        }
+
 
         return "create_wish";
     }
@@ -67,8 +77,6 @@ public class WishController {
         model.addAttribute("author_name", authorName);
         model.addAttribute("wish_url", wishURL);
         model.addAttribute("wish_name", wishName);
-
-
 
         System.out.println("vi klarede den! måske?");
         return "wish_succes";

@@ -170,13 +170,14 @@ public class WishlistRepo {
         return -1;
     }
 
-    public int determineIdWish() {
+    public int calculateNextIdWish(int extraToAdd) {
 
         try {
             executeQuerySelectAll();
             while (res.next()) {
-                if (res.last()) {
-                    return res.getInt(4);
+                if (res.isLast()) {
+                    System.out.println(res.getInt(4)+1 + extraToAdd + " is the next idWish...");
+                    return res.getInt(4)+1+extraToAdd;
                 }
             }
         }
