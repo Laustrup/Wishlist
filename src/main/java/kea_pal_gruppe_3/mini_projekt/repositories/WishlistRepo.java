@@ -2,8 +2,6 @@ package kea_pal_gruppe_3.mini_projekt.repositories;
 
 import kea_pal_gruppe_3.mini_projekt.models.Wish;
 import kea_pal_gruppe_3.mini_projekt.models.Wishlist;
-import kea_pal_gruppe_3.mini_projekt.services.WishAdder;
-import kea_pal_gruppe_3.mini_projekt.services.WishGather;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,14 +9,9 @@ import java.util.ArrayList;
 //@Author Laust
 public class WishlistRepo {
 
-    private Wishlist wishlist;
-
     private Connection connection;
     private PreparedStatement statement;
     private ResultSet res;
-
-    private WishGather wishGather = new WishGather();
-    private WishAdder wishAdder = new WishAdder();
 
     public ArrayList<Wishlist> getAllWishlists() {
 
@@ -28,8 +21,8 @@ public class WishlistRepo {
         ArrayList<Wishlist> wishlists = new ArrayList<>();
 
         try {
-            executeQuery();
-            wishlists = wishGather.talkToDatabase(wishes, wishlists,res);
+            executeQuerySelectAll();
+            wishlists = talkToDatabase(wishes, wishlists, res);
         }
         catch(SQLException e){
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
@@ -41,7 +34,7 @@ public class WishlistRepo {
         return wishlists;
     }
 
-    private void executeQuery() throws SQLException {
+    private void executeQuerySelectAll() throws SQLException {
         // Communicates with MySQL
         connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
                 "remote", "1234");
@@ -55,13 +48,63 @@ public class WishlistRepo {
         System.out.println("Result gathered...\n");
     }
 
+    public ArrayList<Wishlist> talkToDatabase(ArrayList<Wish> wishes, ArrayList<Wishlist> wishlists,
+                                              ResultSet res) throws SQLException {
+
+        int prev = 1;
+        Wishlist wishToAdd = new Wishlist(null,null,null);
+        // Fills in the Wishlist to be returned without wishes
+        gatherFromDatabase(res,wishes,wishlists,prev,wishToAdd);
+
+        return wishlists;
+    }
+
+    private ArrayList<Wishlist> gatherFromDatabase(ResultSet res, ArrayList<Wish> wishes, ArrayList<Wishlist> wishlists,
+                                                   int prev, Wishlist wishToAdd) throws SQLException {
+
+        String name = new String();
+        String author = new String();
+
+        while(res.next()) {
+            if (res.getInt(1) > prev || res.isLast()) {
+                if (res.isLast()) {
+                    wishes.add(new Wish(res.getString(6),res.getString(7)));
+                    System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
+                }
+                wishToAdd = new Wishlist(name, author, wishes);
+                System.out.println("\nwishToAdd created!");
+
+                wishlists.add(wishToAdd);
+                System.out.println("\nWishlist updated with wishes!");
+                wishes = new ArrayList<>();
+                System.out.println("Wishes zeroed!\n");
+            }
+
+            if (!res.isLast()) {
+                wishes.add(new Wish(res.getString(6),res.getString(7)));
+                System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
+            }
+
+
+            //Before nextline, the following values are kept of this line
+            name = res.getString(2);
+            author = res.getString(3);
+            System.out.println("\nName and authors = " + name + " - " + author);
+            prev = res.getInt(1);
+            System.out.println("Previous = " + prev + "\n");
+        }
+        return wishlists;
+    }
+
     public Wishlist putInWishlist(String name, String author, ArrayList<Wish> wishlist) {
 
         // empty temp Wishlist to return
         Wishlist newWishlist = null;
 
         try {
-            wishAdder.setDatabase(name,author,wishlist,connection,statement);
+            connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+                    "remote", "1234");
+            setDatabase(name,author,wishlist,connection,statement);
         }
         catch (SQLException e){
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
@@ -76,6 +119,58 @@ public class WishlistRepo {
 
     public ResultSet getRes() {
         return res;
+    }
+
+    public Wishlist setDatabase(String name, String author,
+                                ArrayList<Wish> wishlist, Connection connection,
+                                PreparedStatement statement) throws SQLException {
+
+        executeUpdateWishlist(name,author,connection,statement);
+
+        executeUpdateWishes(wishlist,connection,statement);
+
+        return new Wishlist(name,author,wishlist);
+    }
+
+    private void executeUpdateWishlist(String name, String author, Connection connection,
+                                       PreparedStatement statement) throws SQLException {
+        connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+                "remote", "1234");
+        statement = connection.prepareStatement("INSERT INTO wishlist(name, author)" +
+                " VALUES (\"" + name + "`\", \"" + author + "\");");
+        statement.executeUpdate();
+        System.out.println(name + " added to database!");
+    }
+
+    private void executeUpdateWishes(ArrayList<Wish> wishes,Connection connection,
+                                     PreparedStatement statement) throws SQLException {
+
+        int wishlistId = determineId_Wishlist();
+        System.out.println("wishlistId is determined to be " + wishlistId + " and wishes.size() equals " + wishes.size());
+
+        if (wishlistId != -1) {
+            for (int i = 0; i < wishes.size(); i++) {
+                System.out.println("\nVariables are " + wishes.get(i).getWish() + wishes.get(i).getUrl());
+
+                statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
+                        " VALUES (" + wishlistId + ",\"" + wishes.get(i).getWish() + "\", \"" + wishes.get(i).getUrl() + "\");");
+                statement.executeUpdate();
+                System.out.println(wishes.get(i).getWish() + " added to database!");
+            }
+        }
+        else {
+            System.out.println("Couldn't determine wishlist_id...");
+        }
+    }
+
+    private int determineId_Wishlist() throws SQLException {
+
+       while(res.next()) {
+            if (res.isLast()) {
+                return res.getInt(1);
+            }
+        }
+        return -1;
     }
 
 }
