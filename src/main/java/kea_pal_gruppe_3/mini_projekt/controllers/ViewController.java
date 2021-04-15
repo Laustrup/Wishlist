@@ -40,6 +40,7 @@ public class ViewController {
                 tmp = allWishLists.get(i);
         }
 
+        // this is a comment
         model.addAttribute("list", tmp);
         return "wish-overview";
 
