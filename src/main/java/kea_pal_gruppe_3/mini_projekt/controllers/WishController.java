@@ -52,7 +52,7 @@ public class WishController {
         wishes.add(new Wish(wishName, wishURL));
         System.out.println("wish added to wishes in /add_wish");
 
-        return "create_wish.html";
+        return "create_wish";
     }
 
     @GetMapping("/wish_succes")
@@ -71,11 +71,11 @@ public class WishController {
 
 
         System.out.println("vi klarede den! måske?");
-        return "wish_succes.html";
+        return "wish_succes";
     }
 
     @PostMapping("/creating_wish")
     public String creatingWish() {
-        return "wish_created.html";
+        return "wish_created";
     }
 }

@@ -22,7 +22,7 @@ private WishlistRepo wishlistRepo = new WishlistRepo();
 
         model.addAttribute("list",allWishLists);
 
-        return "view.html";
+        return "view";
     }
 
     /*
@@ -31,6 +31,15 @@ private WishlistRepo wishlistRepo = new WishlistRepo();
     public String getWishlist(@PathVariable("id") int id) {
         return wishlistService.getWishlist(id).toString();
     }*/
+
+    @GetMapping("/wish-overview")
+    public String showOverview(Model model){
+       // ArrayList<Wishlist> wishlists = test.getAllWishlists();
+
+       // model.addAttribute("list", wishlists.get(1));
+
+        return "wish-overview";
+    }
 
 
 }
