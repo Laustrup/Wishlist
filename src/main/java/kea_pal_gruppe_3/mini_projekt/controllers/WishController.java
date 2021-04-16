@@ -52,17 +52,19 @@ public class WishController {
 
     @PostMapping("/add_wish")
     public String addWish(@RequestParam (name = "wish_name") String wishName,
-                          @RequestParam (name = "wish_url") String wishURL){
+                          @RequestParam (name = "wish_url") String wishURL,
+                          Model model){
 
         try {
             wishes.add(new Wish(wishName, wishURL,hasMoreWishes));
             hasMoreWishes = true;
             System.out.println("Wish added to wishes in /add_wish!");
+            model.addAttribute("wishes",wishes);
         }
         catch (ExceptionInInitializerError e) {
             System.out.println("Couldn't automatically make idWish...");
+            model.addAttribute("error", ",Sorry, couldn't add wish...");
         }
-
 
         return "create_wish";
     }
