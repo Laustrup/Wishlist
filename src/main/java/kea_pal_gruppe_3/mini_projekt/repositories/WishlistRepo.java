@@ -153,7 +153,7 @@ public class WishlistRepo {
                 System.out.println("\nVariables are " + wishes.get(i).getIdWish() +
                         " - " + wishes.get(i).getWish() + " - " + wishes.get(i).getUrl());
                 statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
-                        " VALUES (" + wishes.get(i).getIdWish() + ",\"" + wishes.get(i).getWish() +
+                        " VALUES (" + wishlistId + ",\"" + wishes.get(i).getWish() +
                         "\", \"" + wishes.get(i).getUrl() + "\");");
                 System.out.println("Statement prepared!");
                 statement.executeUpdate();
@@ -172,8 +172,8 @@ public class WishlistRepo {
                 if (res.isLast()) {
                     return res.getInt(1)+1;
                 }
-            }
-            return -1;
+           }
+           return -1;
     }
 
     public int calculateNextIdWish(int extraToAdd) {
