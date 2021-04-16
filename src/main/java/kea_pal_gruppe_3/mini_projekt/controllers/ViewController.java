@@ -1,5 +1,6 @@
 package kea_pal_gruppe_3.mini_projekt.controllers;
 
+import kea_pal_gruppe_3.mini_projekt.models.Wish;
 import kea_pal_gruppe_3.mini_projekt.models.Wishlist;
 import kea_pal_gruppe_3.mini_projekt.repositories.WishlistRepo;
 import org.springframework.stereotype.Controller;
@@ -23,7 +24,7 @@ public class ViewController {
 
         //Debugging
         for (int i = 0; i < allWishLists.size(); i++) {
-           System.out.println("array index " + i +" is: wishList id: " + allWishLists.get(i).getId());
+            System.out.println("array index " + i + " is: wishList id: " + allWishLists.get(i).getId());
         }
 
         return "view";
@@ -33,17 +34,22 @@ public class ViewController {
     @GetMapping("/wishlist/{list.getId}")
     public String getWishlist(@PathVariable("list.getId") int id, Model model) {
 
-       // return wishlistService.getWishlist(id).toString();
+        // return wishlistService.getListOfWishes(id).toString();
 
         ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 
-        Wishlist tmp = null;
+        ArrayList<Wish> tmp = null;
 
         for (int i = 0; i < allWishLists.size(); i++) {
-            if (allWishLists.get(i).getId() == id)
-                tmp = allWishLists.get(i);
+            if (allWishLists.get(i).getId() == id) {
+                tmp = allWishLists.get(i).getListOfWishes();
+                System.out.println("got id [" + id + "] Matching id with [" + allWishLists.get(i).getId() + "]");
+                break;
+            }
         }
 
+        //Debugging
+        System.out.println("you made it here!");
         model.addAttribute("list", tmp);
         return "wish-overview";
 
