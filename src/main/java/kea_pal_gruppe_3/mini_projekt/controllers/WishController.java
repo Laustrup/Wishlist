@@ -104,3 +104,4 @@ public class WishController {
         return "wish_created";
     }
 }
+
