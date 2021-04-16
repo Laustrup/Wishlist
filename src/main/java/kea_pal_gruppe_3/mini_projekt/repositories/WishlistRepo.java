@@ -14,6 +14,7 @@ public class WishlistRepo {
     private ResultSet resultSet;
 
     private int wishlistId = 0;
+    private int previousWishlistId = 1;
 
     private String name = new String();
     private String author = new String();
@@ -29,7 +30,7 @@ public class WishlistRepo {
 
         try {
             executeQuerySelectAll();
-            allWishlists = talkToDatabase(resultSet);
+            allWishlists = gatherFromDatabase();
         }
         catch(SQLException e){
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
@@ -57,41 +58,32 @@ public class WishlistRepo {
         System.out.println("Result gathered...\n");
     }
 
-    public ArrayList<Wishlist> talkToDatabase(ResultSet res) throws SQLException {
+    private ArrayList<Wishlist> gatherFromDatabase() throws SQLException {
 
-        int previousWishlistId = 1;
-        // Fills in the Wishlist to be returned without wishes
-        gatherFromDatabase(res,previousWishlistId);
-
-        return allWishlists;
-    }
-
-    private ArrayList<Wishlist> gatherFromDatabase(ResultSet res, int previousWishlistId) throws SQLException {
-
-        while(res.next()) {
-            if (res.getInt(1) > previousWishlistId || res.isLast()) {
-                if (res.isLast()) {
-                    wishes.add(new Wish(res.getInt(4), res.getString(6),res.getString(7)));
-                    System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
+        while(resultSet.next()) {
+            if (resultSet.getInt(1) > previousWishlistId || resultSet.isLast()) {
+                if (resultSet.isLast()) {
+                    wishes.add(new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7)));
+                    System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
                     addToWishlists();
                     break;
                 }
                 addToWishlists();
             }
 
-            if (!res.isLast()) {
-                wishes.add(new Wish(res.getInt(4), res.getString(6),res.getString(7)));
-                System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
+            if (!resultSet.isLast()) {
+                wishes.add(new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7)));
+                System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
             }
 
-            previousWishlistId = updateCurrentData(previousWishlistId);
+            previousWishlistId = updateCurrentData();
 
         }
 
         return allWishlists;
     }
 
-    private int updateCurrentData(int previousWishlistId) throws SQLException {
+    private int updateCurrentData() throws SQLException {
         name = resultSet.getString(2);
         author = resultSet.getString(3);
         System.out.println("\nName and authors = " + name + " - " + author);
