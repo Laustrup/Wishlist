@@ -21,8 +21,10 @@ public class ViewController {
 
         model.addAttribute("list", allWishLists);
 
-        System.out.println("array index 0 is: " + allWishLists.get(0).getId());
-        System.out.println("array index 1 is: " + allWishLists.get(1).getId());
+        //Debugging
+        for (int i = 0; i < allWishLists.size(); i++) {
+           System.out.println("array index " + i +" is: wishList id: " + allWishLists.get(i).getId());
+        }
 
         return "view";
     }
