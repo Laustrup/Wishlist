@@ -6,21 +6,6 @@
 <main>
 
 
-    <form action="/get_wish" method="post">
-
-        <div class="wishlist_name_section">
-            <label for="wishlist_name">Name of your listOfWishes</label>
-            <input type="text" id="wishlist_name" name="wishlist_name" placeholder="Wishlist name"  required>
-        </div>
-
-        <div class="author_section">
-            <label for="author_name">Your name</label>
-            <input type="text" id="author_name" name="author_name" placeholder="Your name"  required>
-        </div>
-
-            <button type="submit">Accept</button>
-    </form>
-
     <form action="add_wish" method="post">
         <div class="wish_url_section">
             <label for="wish_url">Do you have a URL to yor wish?</label>
@@ -29,11 +14,26 @@
 
         <div class="wish_name_section">
             <label for="wish_name">What is your wish?</label>
-            <input type="text" id="wish_name" name="wish_name" placeholder="Your wish">
+            <input type="text" id="wish_name" name="wish_name" placeholder="Your wish" required>
         </div>
 
         <button type="submit">Add wish</button>
 
+    </form>
+
+    <form action="/get_wish" method="post">
+
+        <div class="wishlist_name_section">
+            <label for="wishlist_name">Name of your wishlist</label>
+            <input type="text" id="wishlist_name" name="wishlist_name" placeholder="Wishlist name"  required>
+        </div>
+
+        <div class="author_section">
+            <label for="author_name">Your name</label>
+            <input type="text" id="author_name" name="author_name" placeholder="Your name"  required>
+        </div>
+
+        <button type="submit">Accept</button>
     </form>
 
 </main>
