@@ -9,11 +9,11 @@
 
     <ul th:each="list : ${list}">
 
-        <a th:href="@{/wishlist/{getId}(getId=${list.getId})}">test</a>
+        <a th:href="@{/wishlist/{getId}(getId=${list.getId})}">
         <li th:text=" ${list.getName}"></li>
         <li th:text="${list.getAuthor}"></li>
         <li th:text="${list.getId}"></li>
-
+        </a>
 
     </ul>
 
