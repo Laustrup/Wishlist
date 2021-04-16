@@ -49,6 +49,7 @@ public class WishController {
             //
             wish.setAddExtraToIdToZero();
             hasMoreWishes = false;
+            wishes = null;
 
             return "get_wish";
         }
