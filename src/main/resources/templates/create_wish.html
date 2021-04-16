@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/head.html(currentPage='Create wish')"></head>
+<head th:replace="fragments/head.html(currentPage='Create wish';)"></head>
 <body>
 <header th:replace="fragments/header.html"></header>
 <main>
@@ -25,8 +25,8 @@
         <p style="font-style: italic">All boxes with a * symbol must be filled out.</p>
 
         <div class="wish_name_section">
-            <label for="wish_name">What is your wish?</label>
-            <input type="text" id="wish_name" name="wish_name" placeholder="Your wish *" required>
+            <label for="wish_name">What is your wish? *</label>
+            <input type="text" id="wish_name" name="wish_name" placeholder="Your wish" required>
         </div>
 
         <div class="wish_url_section">
@@ -47,13 +47,13 @@
     <form action="/get_wish" method="post">
 
         <div class="wishlist_name_section">
-            <label for="wishlist_name">Name of your wishlist</label>
-            <input type="text" id="wishlist_name" name="wishlist_name" placeholder="Wishlist name *"  required>
+            <label for="wishlist_name">Name of your wishlist *</label>
+            <input type="text" id="wishlist_name" name="wishlist_name" placeholder="Wishlist name"  required>
         </div>
 
         <div class="author_section">
-            <label for="author_name">Your name</label>
-            <input type="text" id="author_name" name="author_name" placeholder="Your name *"  required>
+            <label for="author_name">Your name *</label>
+            <input type="text" id="author_name" name="author_name" placeholder="Your name"  required>
         </div>
 
         <button type="submit">Accept</button>

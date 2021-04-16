@@ -1,3 +1,17 @@
-html {
+main {
+    text-align: center;
+}
+
+header {
     background-color: red;
+    border-bottom: black 5px solid;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}
+
+html {
+    background-color: khaki;
 }

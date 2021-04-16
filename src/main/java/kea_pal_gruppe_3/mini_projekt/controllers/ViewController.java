@@ -34,8 +34,6 @@ public class ViewController {
     @GetMapping("/wishlist/{list.getId}")
     public String getWishlist(@PathVariable("list.getId") int id, Model model) {
 
-        // return wishlistService.getListOfWishes(id).toString();
-
         ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 
         ArrayList<Wish> tmp = null;
