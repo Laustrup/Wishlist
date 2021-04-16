@@ -54,8 +54,6 @@ public class WishController {
     public String addWish(@RequestParam (name = "wish_name") String wishName,
                           @RequestParam (name = "wish_url") String wishURL){
 
-        System.out.println("Arrived in addWish");
-
         try {
             wishes.add(new Wish(wishName, wishURL,hasMoreWishes));
             hasMoreWishes = true;
