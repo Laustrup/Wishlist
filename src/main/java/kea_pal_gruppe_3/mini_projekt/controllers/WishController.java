@@ -25,7 +25,7 @@ public class WishController {
     @GetMapping("/create_wish")
     public String wishForm(){
 
-
+        areThereAnyWishes = false;
         return "create_wish";
     }
 
