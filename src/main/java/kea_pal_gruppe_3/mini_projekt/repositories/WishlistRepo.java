@@ -22,11 +22,13 @@ public class WishlistRepo {
     // An arraylist to gather every wishes pr. wishlist into wishlist
     private ArrayList<Wish> wishes = new ArrayList<>();
     // Wishlist to be returned
-    private ArrayList<Wishlist> allWishlists = new ArrayList<>();
+    private ArrayList<Wishlist> allWishlists;
 
     public ArrayList<Wishlist> getAllWishlists() {
 
         System.out.println("\ngetAllWishlists() beginning ***************************************************************");
+
+        allWishlists = new ArrayList<>();
 
         try {
             executeQuerySelectAll();
