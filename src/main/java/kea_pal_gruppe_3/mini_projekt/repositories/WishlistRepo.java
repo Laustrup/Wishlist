@@ -66,6 +66,7 @@ public class WishlistRepo {
 
         String name = new String();
         String author = new String();
+        int wishlistId = 0;
 
         while(res.next()) {
             if (res.getInt(1) > prev || res.isLast()) {
@@ -73,7 +74,8 @@ public class WishlistRepo {
                     wishes.add(new Wish(res.getInt(4), res.getString(6),res.getString(7)));
                     System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
                 }
-                wishToAdd = new Wishlist(res.getInt(1),name, author, wishes);
+                wishToAdd = new Wishlist(wishlistId,name, author, wishes);
+                System.out.println("Wishlist id is " + wishlistId);
                 System.out.println("\nwishToAdd created!");
 
                 wishlists.add(wishToAdd);
@@ -87,13 +89,14 @@ public class WishlistRepo {
                 System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
             }
 
-
             //Before nextline, the following values are kept of this line
             name = res.getString(2);
             author = res.getString(3);
             System.out.println("\nName and authors = " + name + " - " + author);
             prev = res.getInt(1);
             System.out.println("Previous = " + prev + "\n");
+            wishlistId = res.getInt(1);
+
         }
         return wishlists;
     }
