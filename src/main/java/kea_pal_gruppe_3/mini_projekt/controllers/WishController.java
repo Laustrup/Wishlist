@@ -32,23 +32,16 @@ public class WishController {
     @PostMapping("/get_wish")
     public String getWishFromForm(@RequestParam (name = "wishlist_name") String wishlistName,
                                   @RequestParam (name = "author_name") String authorName,
-                                  RedirectAttributes redirect, Model model){
+                                  Model model){
         if (areThereAnyWishes) {
 
-/*
-        redirect.addAttribute("wishlist_name", wishlistName);
-        redirect.addAttribute("wish_url",wishURL);
-        redirect.addAttribute("wish_name",wishName);
-        redirect.addAttribute("author_name", authorName);
-
-*/
 
             model.addAttribute("wishlist_name", wishlistName);
             model.addAttribute("author_name", authorName);
 
             wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
 
-            //
+
             wish.setAddExtraToIdToZero();
             hasMoreWishes = false;
             wishes = new ArrayList<>();
@@ -84,6 +77,7 @@ public class WishController {
         return "create_wish";
     }
 
+    /*
     @GetMapping("/wish_succes")
     public String wishSucces(@RequestParam String wishlistName,
                              @RequestParam String wishURL,
@@ -103,5 +97,7 @@ public class WishController {
     public String creatingWish() {
         return "wish_created";
     }
+
+     */
 }
 
