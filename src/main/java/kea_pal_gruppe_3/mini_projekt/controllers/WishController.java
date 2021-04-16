@@ -16,14 +16,16 @@ import java.util.ArrayList;
 public class WishController {
 
     private WishlistRepo wishlistRepo = new WishlistRepo();
-    private ArrayList<Wish> wishes;
+    private ArrayList<Wish> wishes = new ArrayList<>();
     private Wish wish = new Wish(null,null,false);
 
     private boolean hasMoreWishes = false;
+    private boolean areThereAnyWishes = false;
 
     @GetMapping("/create_wish")
     public String wishForm(){
 
+        areThereAnyWishes = false;
         return "create_wish";
     }
 
@@ -31,7 +33,7 @@ public class WishController {
     public String getWishFromForm(@RequestParam (name = "wishlist_name") String wishlistName,
                                   @RequestParam (name = "author_name") String authorName,
                                   RedirectAttributes redirect, Model model){
-        if (wishes != null) {
+        if (areThereAnyWishes) {
 
 /*
         redirect.addAttribute("wishlist_name", wishlistName);
@@ -49,11 +51,13 @@ public class WishController {
             //
             wish.setAddExtraToIdToZero();
             hasMoreWishes = false;
-            wishes = null;
+            wishes = new ArrayList<>();
+            areThereAnyWishes = false;
 
             return "get_wish";
         }
         else {
+
             model.addAttribute("errormessage", "You need to make a wish, in order to make a wishlist...");
             return "create_wish";
         }
@@ -70,6 +74,7 @@ public class WishController {
             hasMoreWishes = true;
             System.out.println("Wish added to wishes in /add_wish!");
             model.addAttribute("wishes",wishes);
+            areThereAnyWishes = true;
         }
         catch (ExceptionInInitializerError e) {
             System.out.println("Couldn't automatically make idWish...");
