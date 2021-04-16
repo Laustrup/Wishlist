@@ -21,12 +21,15 @@ public class ViewController {
 
         model.addAttribute("list", allWishLists);
 
+        System.out.println("array index 0 is: " + allWishLists.get(0).getId());
+        System.out.println("array index 1 is: " + allWishLists.get(1).getId());
+
         return "view";
     }
 
 
-    @GetMapping("/wishlist/{getId_wishlist}")
-    public String getWishlist(@PathVariable("getId_wishlist") int id, Model model) {
+    @GetMapping("/wishlist/{list.getId}")
+    public String getWishlist(@PathVariable("list.getId") int id, Model model) {
 
        // return wishlistService.getWishlist(id).toString();
 
@@ -35,7 +38,7 @@ public class ViewController {
         Wishlist tmp = null;
 
         for (int i = 0; i < allWishLists.size(); i++) {
-            if (allWishLists.get(i).getId_wishlist() == id)
+            if (allWishLists.get(i).getId() == id)
                 tmp = allWishLists.get(i);
         }
 
