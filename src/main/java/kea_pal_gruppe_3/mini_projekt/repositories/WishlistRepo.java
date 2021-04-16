@@ -73,15 +73,10 @@ public class WishlistRepo {
                 if (res.isLast()) {
                     wishes.add(new Wish(res.getInt(4), res.getString(6),res.getString(7)));
                     System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
+                    addToWishlists(name,author,wishes, wishToAdd, wishlists);
+                    break;
                 }
-                wishToAdd = new Wishlist(wishlistId,name, author, wishes);
-                System.out.println("Wishlist id is " + wishlistId);
-                System.out.println("\nwishToAdd created!");
-
-                wishlists.add(wishToAdd);
-                System.out.println("\nWishlist updated with wishes!");
-                wishes = new ArrayList<>();
-                System.out.println("Wishes zeroed!\n");
+                addToWishlists(name,author,wishes, wishToAdd, wishlists);
             }
 
             if (!res.isLast()) {
@@ -89,16 +84,34 @@ public class WishlistRepo {
                 System.out.println("Wish added to wishes... " + res.getString(6) + " - " + res.getString(7));
             }
 
-            //Before nextline, the following values are kept of this line
-            name = res.getString(2);
-            author = res.getString(3);
-            System.out.println("\nName and authors = " + name + " - " + author);
-            prev = res.getInt(1);
-            System.out.println("Previous = " + prev + "\n");
-            wishlistId = res.getInt(1);
+            rememberData(name,author,prev);
+
+
 
         }
         return wishlists;
+    }
+
+    private void rememberData(String name, String author, int prev) throws SQLException {
+        name = res.getString(2);
+        author = res.getString(3);
+        System.out.println("\nName and authors = " + name + " - " + author);
+        prev = res.getInt(1);
+        System.out.println("Previous = " + prev + "\n");
+        wishlistId = res.getInt(1);
+    }
+
+    private void addToWishlists(String name,String author, ArrayList<Wish> wishes,
+                                Wishlist wishToAdd, ArrayList<Wishlist> wishlists) {
+
+        wishToAdd = new Wishlist(wishlistId,name, author, wishes);
+        System.out.println("Wishlist id is " + wishlistId);
+        System.out.println("\nwishToAdd created!");
+
+        wishlists.add(wishToAdd);
+        System.out.println("\nWishlist updated with wishes!");
+        wishes = new ArrayList<>();
+        System.out.println("Wishes zeroed!\n");
     }
 
     public Wishlist putInWishlist(String name, String author, ArrayList<Wish> wishlist) {
