@@ -9,6 +9,7 @@ body {
 }
 
 header {
+    padding-top: 5px;
     background-color: lightpink;
     border-bottom: black 5px solid;
     text-align: center;

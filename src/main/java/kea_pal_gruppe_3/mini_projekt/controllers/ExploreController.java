@@ -22,6 +22,7 @@ public class ExploreController {
         model.addAttribute("list", allWishLists);
 
         //Debugging
+        System.out.println("Size of array is: " + allWishLists.size());
         for (int i = 0; i < allWishLists.size(); i++) {
             System.out.println("array index " + i + " is: wishList id: " + allWishLists.get(i).getId());
         }
