@@ -42,8 +42,8 @@ public class WishlistRepo {
                 "remote", "1234");
         // Makes an statement to each tables and gather the results into resultsets
 
-        statement = connection.prepareStatement("SELECT * FROM wishlist\n" +
-                "INNER JOIN wish\n" +
+        statement = connection.prepareStatement("SELECT * FROM wishlist " +
+                "INNER JOIN wish " +
                 "ON wishlist.id_wishlist = wish.id_wishlist;");
         System.out.println("\nStatement prepared...");
         res = statement.executeQuery();
@@ -149,9 +149,13 @@ public class WishlistRepo {
 
         if (wishlistId != -1) {
             for (int i = 0; i < wishes.size(); i++) {
-                System.out.println("\nVariables are " + wishes.get(i).getWish() + wishes.get(i).getUrl());
+
+                System.out.println("\nVariables are " + wishes.get(i).getIdWish() +
+                        " - " + wishes.get(i).getWish() + " - " + wishes.get(i).getUrl());
                 statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
-                        " VALUES (" + wishes.get(i).getIdWish() + ",\"" + wishes.get(i).getWish() + "\", \"" + wishes.get(i).getUrl() + "\");");
+                        " VALUES (" + wishes.get(i).getIdWish() + ",\"" + wishes.get(i).getWish() +
+                        "\", \"" + wishes.get(i).getUrl() + "\");");
+                System.out.println("Statement prepared!");
                 statement.executeUpdate();
                 System.out.println(wishes.get(i).getWish() + " added to database!");
             }
@@ -178,7 +182,7 @@ public class WishlistRepo {
             executeQuerySelectAll();
             while (res.next()) {
                 if (res.isLast()) {
-                    System.out.println(res.getInt(4)+1 + extraToAdd + " is the next idWish...");
+                    System.out.println(res.getInt(4)+1 + extraToAdd + " is the next idWish...\n");
                     return res.getInt(4)+1+extraToAdd;
                 }
             }
