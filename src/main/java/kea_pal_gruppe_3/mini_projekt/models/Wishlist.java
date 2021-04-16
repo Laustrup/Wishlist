@@ -7,26 +7,26 @@ public class Wishlist {
     private int idWishlist;
     private String name;
     private String author;
-    private ArrayList<Wish> wishlist;
+    private ArrayList<Wish> listOfWishes;
 
     public Wishlist(int idWishlist, String name, String author, ArrayList<Wish> wishlist) {
 
         this.idWishlist = idWishlist;
         this.name = name;
         this.author = author;
-        this.wishlist = wishlist;
+        this.listOfWishes = wishlist;
     }
 
     public int getId() {
         return idWishlist;
     }
 
-    public ArrayList<Wish> getWishlist() {
-        return wishlist;
+    public ArrayList<Wish> getListOfWishes() {
+        return listOfWishes;
     }
 
-    public void setWishlist(ArrayList<Wish> wishlist) {
-        this.wishlist = wishlist;
+    public void setListOfWishes(ArrayList<Wish> listOfWishes) {
+        this.listOfWishes = listOfWishes;
     }
 
     public String getAuthor() {
@@ -41,8 +41,8 @@ public class Wishlist {
 
         String res = new String();
 
-        for (int i = 0; i < wishlist.size(); i++) {
-            res += wishlist.get(i).getWish() + "\n";
+        for (int i = 0; i < listOfWishes.size(); i++) {
+            res += listOfWishes.get(i).getWish() + " ";
         }
         return res;
     }
