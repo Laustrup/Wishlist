@@ -85,14 +85,12 @@ public class WishController {
                              @RequestParam String wishName,
                              @RequestParam String authorName,
                              Model model){
-        System.out.println("wish succes bol mig");
 
         model.addAttribute("wishlist_name", wishlistName);
         model.addAttribute("author_name", authorName);
         model.addAttribute("wish_url", wishURL);
         model.addAttribute("wish_name", wishName);
 
-        System.out.println("vi klarede den! måske?");
         return "wish_succes";
     }
 
