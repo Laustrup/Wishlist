@@ -2,12 +2,14 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 
+    <!-- GLOBAL !-->
     <meta charset="UTF-8">
-    <title th:text="${currentPage}"></title>
-
     <link rel="icon" type="image/png" th:href="@{icon.png}"/>
-    <link rel="stylesheet" th:href="@{main.css}">
-    <link rel="stylesheet" th:href="@{stylesheet.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/stylesheet.css}">
+
+    <!-- CUSTOM !-->
+    <title th:text="${currentPage}"></title>
+    <link rel="stylesheet" th:href="@{${customCSS}}">
 
 </head>
 </html>

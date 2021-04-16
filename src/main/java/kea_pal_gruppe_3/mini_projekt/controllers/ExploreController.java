@@ -6,16 +6,15 @@ import kea_pal_gruppe_3.mini_projekt.repositories.WishlistRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
 @Controller
-public class ViewController {
+public class ExploreController {
 
     private WishlistRepo wishlistRepo = new WishlistRepo();
 
-    @GetMapping("/view")
+    @GetMapping("/explore")
     public String renderView(Model model) {
 
         ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
@@ -27,7 +26,7 @@ public class ViewController {
             System.out.println("array index " + i + " is: wishList id: " + allWishLists.get(i).getId());
         }
 
-        return "view";
+        return "explore";
     }
 
 
@@ -49,7 +48,7 @@ public class ViewController {
         //Debugging
         System.out.println("you made it here!");
         model.addAttribute("list", tmp);
-        return "wish-overview";
+        return "wishlist";
 
     }
 }

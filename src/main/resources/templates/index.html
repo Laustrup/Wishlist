@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head.html(currentPage='Index')"></head>
+<head th:replace="fragments/head.html(customCSS='/stylesheets/main.css')"></head>
 <body>
 <header th:replace="fragments/header.html"></header>
 <main>
@@ -8,7 +9,7 @@
 
     <segment>
         <h2><a href="/create_wish"><button>Create wishlist!</button></a></h2>
-        <h2><a href="/view"><button>Explore wishlists!</button></a></h2>
+        <h2><a href="/explore"><button>Explore wishlists!</button></a></h2>
         <!-- <h2><a href="/events"><button>Search for events!</button></a></h2> !-->
     </segment>
 

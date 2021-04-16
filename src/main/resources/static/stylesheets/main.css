@@ -1,8 +1,8 @@
 /* --- META --- */
 @font-face {
     font-family: 'artf';
-    src: url('ArticulatCF-DemiBold.woff2') format('woff2'),
-    url('ArticulatCF-DemiBold.woff') format('woff');
+    src: url('../fonts/ArticulatCF-DemiBold.woff2') format('woff2'),
+    url('../fonts/ArticulatCF-DemiBold.woff') format('woff');
 }
 
 html {

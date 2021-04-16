@@ -1,0 +1,24 @@
+/* global CSS*/
+main {
+    text-align: center;
+
+}
+
+body {
+    margin: 0px;
+}
+
+header {
+    background-color: lightpink;
+    border-bottom: black 5px solid;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+}
+
+html {
+    background: rgb(238,174,202);
+    background: linear-gradient(270deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
