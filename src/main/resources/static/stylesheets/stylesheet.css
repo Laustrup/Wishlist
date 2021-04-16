@@ -1,11 +1,15 @@
 /* global CSS*/
-main {
-    text-align: center;
-
+html {
+    background: rgb(238,174,202);
+    background: linear-gradient(270deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
 body {
-    margin: 0px;
+    margin: 0px; /* override default margin */
+}
+
+main {
+    text-align: center;
 }
 
 header {
@@ -13,13 +17,11 @@ header {
     background-color: lightpink;
     border-bottom: black 5px solid;
     text-align: center;
+
 }
 
 footer {
     text-align: center;
+    vertical-align: bottom;
 }
 
-html {
-    background: rgb(238,174,202);
-    background: linear-gradient(270deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
-}

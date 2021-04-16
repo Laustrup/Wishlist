@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head.html(currentPage='Create wish')"></head>
-<head th:replace="fragments/head.html(customCSS='/stylesheets/main.css')"></head>
+<head th:replace="fragments/head.html(customCSS='/stylesheets/create_wish.css')"></head>
 <body>
 <header th:replace="fragments/header.html"></header>
 <main>
 
+    <!-- Grid layout !-->
+    <section class="grid-container">
 
+    <!-- Introduction/Manual !-->
+    <section class="manual">
     <div>
         <h1>Welcome! Here you can add wishes to a wishlist.</h1>
         <h3>Steps:</h3>
@@ -14,13 +18,17 @@
             <li>Enter your wish and optionally a url where you can buy the thing from.</li>
             <li>After you have entered your wish, with or without the url, press the "Add wish" button</li>
             <li>After you have added a wish, you can keep adding new wishes to your list. Follow step 1 and 2.</li>
-            <li>After you are done adding wishes, you must enter the name of your wishlist and your name, below the "Add wish" button.</li>
+            <li>After you are done adding wishes, you must enter the name of your wishlist and your name, below the "Add
+                wish" button.
+            </li>
             <li>Press the "Accept" button when you are done entering the name of your wishlist and your name.</li>
             <li>Now your wishlist has been created, and all the wishes have been added to it!</li>
         </ol>
     </div>
+    </section>
 
-
+    <!-- Wish name & URL !-->
+    <section class="wish_and_url">
     <form action="add_wish" method="post">
 
         <p style="font-style: italic">All boxes with a * symbol must be filled out.</p>
@@ -39,28 +47,38 @@
         <button type="submit">Add wish</button>
 
     </form>
+    </section>
 
+    <!-- Feedback window -->
+    <aside class="feedback_window">
     <ul th:each="wish : ${wishes}">
         <li th:text="${wish.getWish}"></li>
         <li th:text="${wish.getUrl}"></li>
     </ul>
+    </aside>
 
+    <!-- Wish title & author !-->
+    <section class="title_and_author">
     <form action="/get_wish" method="post">
 
         <div class="wishlist_name_section">
             <label for="wishlist_name">Name of your wishlist *</label>
-            <input type="text" id="wishlist_name" name="wishlist_name" placeholder="Wishlist name"  required>
+            <input type="text" id="wishlist_name" name="wishlist_name" placeholder="Wishlist name" required>
         </div>
 
         <div class="author_section">
             <label for="author_name">Your name *</label>
-            <input type="text" id="author_name" name="author_name" placeholder="Your name"  required>
+            <input type="text" id="author_name" name="author_name" placeholder="Your name" required>
         </div>
 
         <button type="submit">Accept</button>
     </form>
+    </section>
 
+    <!-- Error message !-->
     <p th:text="${errormessage}"></p>
+
+    </section>
 
 </main>
 <footer th:replace="fragments/footer.html"></footer>

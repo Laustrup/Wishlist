@@ -1,0 +1,37 @@
+.grid-container {
+
+    padding-left: 25%;
+    padding-right: 25%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+    "ma ma"
+    "w a"
+    "m a";
+}
+
+.manual {
+    grid-area: ma;
+}
+
+.wish_and_url {
+    border: lightpink 5px solid;
+    border-bottom: none;
+    grid-area: w;
+}
+
+.title_and_author {
+    border: lightpink 5px solid;
+    grid-area: m;
+}
+
+.feedback_window {
+    border: lightpink 5px solid;
+    grid-area: a;
+
+    text-align: justify;  /* make text fill out */
+    overflow: auto; /* make text 'shrink' if too small */
+}
