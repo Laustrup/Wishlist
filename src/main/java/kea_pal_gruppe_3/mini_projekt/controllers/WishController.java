@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class WishController {
 
     private WishlistRepo wishlistRepo = new WishlistRepo();
-    private ArrayList<Wish> wishes = new ArrayList<>();
+    private ArrayList<Wish> wishes;
     private Wish wish = new Wish(null,null,false);
 
     private boolean hasMoreWishes = false;
@@ -31,23 +31,33 @@ public class WishController {
     public String getWishFromForm(@RequestParam (name = "wishlist_name") String wishlistName,
                                   @RequestParam (name = "author_name") String authorName,
                                   RedirectAttributes redirect, Model model){
+        if (wishes != null) {
+
 /*
         redirect.addAttribute("wishlist_name", wishlistName);
         redirect.addAttribute("wish_url",wishURL);
         redirect.addAttribute("wish_name",wishName);
         redirect.addAttribute("author_name", authorName);
+
 */
 
-        model.addAttribute("wishlist_name", wishlistName);
-        model.addAttribute("author_name", authorName);
+            model.addAttribute("wishlist_name", wishlistName);
+            model.addAttribute("author_name", authorName);
 
-        wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
+            wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
 
-        //
-        wish.setAddExtraToIdToZero();
-        hasMoreWishes = false;
+            //
+            wish.setAddExtraToIdToZero();
+            hasMoreWishes = false;
+            wishes = null;
 
-        return "get_wish";
+            return "get_wish";
+        }
+        else {
+            model.addAttribute("errormessage", "You need to make a wish, in order to make a wishlist...");
+            return "create_wish";
+        }
+
     }
 
     @PostMapping("/add_wish")
