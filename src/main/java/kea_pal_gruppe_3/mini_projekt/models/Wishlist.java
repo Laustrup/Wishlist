@@ -17,7 +17,7 @@ public class Wishlist {
         this.wishlist = wishlist;
     }
 
-    public int getIdWishlist() {
+    public int getId() {
         return idWishlist;
     }
 
@@ -45,9 +45,5 @@ public class Wishlist {
             res += wishlist.get(i).getWish() + "\n";
         }
         return res;
-    }
-
-    public int getId_wishlist() {
-        return idWishlist;
     }
 }
