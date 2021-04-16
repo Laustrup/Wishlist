@@ -39,6 +39,11 @@
 
     </form>
 
+    <ul th:each="wish : ${wishes}">
+        <li th:text="${wish.getWish}"></li>
+        <li th:text="${wish.getUrl}"></li>
+    </ul>
+
     <form action="/get_wish" method="post">
 
         <div class="wishlist_name_section">
