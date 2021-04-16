@@ -6,18 +6,34 @@
 <main>
 
 
+    <div>
+        <h1>Welcome! Here you can add wishes to a wishlist.</h1>
+        <h3>Steps:</h3>
+        <ol>
+            <li>Enter your wish and optionally a url where you can buy the thing from.</li>
+            <li>After you have entered your wish, with or without the url, press the "Add wish" button</li>
+            <li>After you have added a wish, you can keep adding new wishes to your list. Follow step 1 and 2.</li>
+            <li>After you are done adding wishes, you must enter the name of your wishlist and your name, below the "Add wish" button.</li>
+            <li>Press the "Accept" button when you are done entering the name of your wishlist and your name.</li>
+            <li>Now your wishlist has been created, and all the wishes have been added to it!</li>
+        </ol>
+    </div>
 
 
     <form action="add_wish" method="post">
+
+        <p style="font-style: italic">All boxes with a * symbol must be filled out.</p>
+
+        <div class="wish_name_section">
+            <label for="wish_name">What is your wish?</label>
+            <input type="text" id="wish_name" name="wish_name" placeholder="Your wish *" required>
+        </div>
+
         <div class="wish_url_section">
             <label for="wish_url">Do you have a URL to yor wish?</label>
             <input type="text" id="wish_url" name="wish_url" placeholder="Wish URL">
         </div>
 
-        <div class="wish_name_section">
-            <label for="wish_name">What is your wish?</label>
-            <input type="text" id="wish_name" name="wish_name" placeholder="Your wish" required>
-        </div>
 
         <button type="submit">Add wish</button>
 
@@ -27,12 +43,12 @@
 
         <div class="wishlist_name_section">
             <label for="wishlist_name">Name of your wishlist</label>
-            <input type="text" id="wishlist_name" name="wishlist_name" placeholder="Wishlist name"  required>
+            <input type="text" id="wishlist_name" name="wishlist_name" placeholder="Wishlist name *"  required>
         </div>
 
         <div class="author_section">
             <label for="author_name">Your name</label>
-            <input type="text" id="author_name" name="author_name" placeholder="Your name"  required>
+            <input type="text" id="author_name" name="author_name" placeholder="Your name *"  required>
         </div>
 
         <button type="submit">Accept</button>
