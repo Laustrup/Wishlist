@@ -63,13 +63,9 @@ public class WishlistRepo {
     private ArrayList<Wishlist> gatherFromDatabase() throws SQLException {
 
         while(resultSet.next()) {
-            if (resultSet.getInt(1) > previousWishlistId || resultSet.isLast()) {
-                if (resultSet.isLast()) {
-                    wishes.add(new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7)));
-                    System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
-                    addToWishlists();
-                    break;
-                }
+            if (resultSet.getInt(1) > previousWishlistId) {
+                System.out.println(resultSet.getInt(1) + " is current wishlistId and " +
+                        previousWishlistId + " is previous, isLast is " + resultSet.isLast());
                 addToWishlists();
             }
 
@@ -79,6 +75,14 @@ public class WishlistRepo {
             }
 
             previousWishlistId = updateCurrentData();
+
+            if (resultSet.isLast()) {
+                System.out.println(resultSet.getInt(1) + " is current wishlistId and " +
+                        previousWishlistId + " is previous, isLast is " + resultSet.isLast());
+                wishes.add(new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7)));
+                System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
+                addToWishlists();
+            }
 
         }
 

@@ -46,8 +46,6 @@ public class ExploreController {
             }
         }
 
-        //Debugging
-        System.out.println("you made it here!");
         model.addAttribute("list", tmp);
         return "wishlist";
 

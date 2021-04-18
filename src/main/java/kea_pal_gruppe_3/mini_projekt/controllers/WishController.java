@@ -61,6 +61,10 @@ public class WishController {
                           @RequestParam (name = "wish_url") String wishURL,
                           Model model){
 
+        if (wishURL.equals("")) {
+            wishURL = null;
+        }
+
         try {
             wishes.add(new Wish(wishName, wishURL,hasMoreWishes));
             hasMoreWishes = true;
