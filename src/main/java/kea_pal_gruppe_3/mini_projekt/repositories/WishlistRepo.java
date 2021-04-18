@@ -5,6 +5,8 @@ import kea_pal_gruppe_3.mini_projekt.models.Wishlist;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 //@Author Laust
 public class WishlistRepo {
@@ -18,6 +20,8 @@ public class WishlistRepo {
 
     private String name = new String();
     private String author = new String();
+
+    private Map<String, Object> map = new HashMap<>();
 
     // An arraylist to gather every wishes pr. wishlist into wishlist
     private ArrayList<Wish> wishes = new ArrayList<>();
@@ -62,6 +66,8 @@ public class WishlistRepo {
 
     private ArrayList<Wishlist> gatherFromDatabase() throws SQLException {
 
+        Wish currentWish = new Wish(null,null,false);
+
         while(resultSet.next()) {
             if (resultSet.getInt(1) > previousWishlistId) {
                 System.out.println(resultSet.getInt(1) + " is current wishlistId and " +
@@ -70,7 +76,9 @@ public class WishlistRepo {
             }
 
             if (!resultSet.isLast()) {
-                wishes.add(new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7)));
+                currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7));
+                wishes.add(currentWish);
+                map.put(String.valueOf(currentWish.getIdWish()),currentWish);
                 System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
             }
 
@@ -79,7 +87,9 @@ public class WishlistRepo {
             if (resultSet.isLast()) {
                 System.out.println(resultSet.getInt(1) + " is current wishlistId and " +
                         previousWishlistId + " is previous, isLast is " + resultSet.isLast());
-                wishes.add(new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7)));
+                currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7));
+                wishes.add(currentWish);
+                map.put(String.valueOf(currentWish.getIdWish()),currentWish);
                 System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
                 addToWishlists();
             }
@@ -206,6 +216,10 @@ public class WishlistRepo {
             System.out.println(e.getMessage());
         }
         return -1;
+    }
+
+    public Map<String, Object> getMap() {
+        return map;
     }
 
 }

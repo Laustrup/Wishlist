@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Controller
 public class ExploreController {
@@ -36,6 +37,8 @@ public class ExploreController {
 
         ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 
+        Map<String, Object> map = wishlistRepo.getMap();
+
         ArrayList<Wish> tmp = null;
 
         for (int i = 0; i < allWishLists.size(); i++) {
@@ -48,6 +51,5 @@ public class ExploreController {
 
         model.addAttribute("list", tmp);
         return "wishlist";
-
     }
 }
