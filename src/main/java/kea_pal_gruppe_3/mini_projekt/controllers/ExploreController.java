@@ -32,7 +32,7 @@ public class ExploreController {
 
 
     @GetMapping("/wishlist/{list.getId}")
-    public String getWishlist(@PathVariable("list.getId") int id, Model model) {
+    public String getWishlists(@PathVariable("list.getId") int id, Model model) {
 
         ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 

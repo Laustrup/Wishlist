@@ -108,6 +108,7 @@ public class WishlistRepo {
         System.out.println("Wishes zeroed!\n");
     }
 
+    //TODO Classdiagram figure out the parameter inputs
     public Wishlist putInWishlist(String name, String author, ArrayList<Wish> wishlist) {
 
         // empty temp Wishlist to return
@@ -130,7 +131,7 @@ public class WishlistRepo {
         return newWishlist;
     }
 
-    public Wishlist setDatabase(String name, String author,
+    private Wishlist setDatabase(String name, String author,
                                 ArrayList<Wish> wishlist, Connection connection,
                                 PreparedStatement statement) throws SQLException {
 
