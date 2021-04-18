@@ -8,14 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 
 @Controller
 public class WishController {
 
-    private WishlistRepo wishlistRepo = new WishlistRepo();
+    private WishlistRepo repo = new WishlistRepo();
     private ArrayList<Wish> wishes = new ArrayList<>();
     private Wish wish = new Wish(null,null,false);
 
@@ -39,7 +38,7 @@ public class WishController {
             model.addAttribute("wishlist_name", wishlistName);
             model.addAttribute("author_name", authorName);
 
-            wishlistRepo.putInWishlist(wishlistName, authorName, wishes);
+            repo.putInWishlist(wishlistName, authorName, wishes);
 
 
             wish.setAddExtraToIdToZero();
@@ -77,27 +76,5 @@ public class WishController {
         return "create_wish";
     }
 
-    /*
-    @GetMapping("/wish_succes")
-    public String wishSucces(@RequestParam String wishlistName,
-                             @RequestParam String wishURL,
-                             @RequestParam String wishName,
-                             @RequestParam String authorName,
-                             Model model){
-
-        model.addAttribute("wishlist_name", wishlistName);
-        model.addAttribute("author_name", authorName);
-        model.addAttribute("wish_url", wishURL);
-        model.addAttribute("wish_name", wishName);
-
-        return "wish_succes";
-    }
-
-    @PostMapping("/creating_wish")
-    public String creatingWish() {
-        return "wish_created";
-    }
-
-     */
 }
 
