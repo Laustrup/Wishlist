@@ -50,7 +50,7 @@ public class WishlistRepo {
         return allWishlists;
     }
 
-    private void executeQuerySelectAll() throws SQLException {
+    public void executeQuerySelectAll() throws SQLException {
         // Communicates with MySQL
         connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                 "remote", "1234");
@@ -66,7 +66,7 @@ public class WishlistRepo {
 
     private ArrayList<Wishlist> gatherFromDatabase() throws SQLException {
 
-        Wish currentWish = new Wish(null,null,false);
+        Wish currentWish;
 
         while(resultSet.next()) {
             if (resultSet.getInt(1) > previousWishlistId) {
@@ -76,7 +76,8 @@ public class WishlistRepo {
             }
 
             if (!resultSet.isLast()) {
-                currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7));
+                currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),
+                                        resultSet.getString(7), false);
                 wishes.add(currentWish);
                 System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
             }
@@ -86,7 +87,8 @@ public class WishlistRepo {
             if (resultSet.isLast()) {
                 System.out.println(resultSet.getInt(1) + " is current wishlistId and " +
                         previousWishlistId + " is previous, isLast is " + resultSet.isLast());
-                currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7));
+                currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),
+                                        resultSet.getString(7), false);
                 wishes.add(currentWish);
                 System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
                 addToWishlists();
@@ -126,7 +128,11 @@ public class WishlistRepo {
     }
 
     //TODO Classdiagram figure out the parameter inputs
-    public Wishlist putInWishlist(String name, String author, ArrayList<Wish> wishlist) {
+    public Wishlist putInWishlist(String name, String author, ArrayList<Wish> wishes) {
+
+        this.name = name;
+        this.author = author;
+        this.wishes = wishes;
 
         // empty temp Wishlist to return
         Wishlist newWishlist = null;
@@ -134,7 +140,7 @@ public class WishlistRepo {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                     "remote", "1234");
-            setDatabase(name,author,wishlist,connection,statement);
+            setDatabase();
         }
         catch (SQLException e){
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
@@ -148,19 +154,16 @@ public class WishlistRepo {
         return newWishlist;
     }
 
-    private Wishlist setDatabase(String name, String author,
-                                ArrayList<Wish> wishlist, Connection connection,
-                                PreparedStatement statement) throws SQLException {
+    private Wishlist setDatabase() throws SQLException {
 
-        executeUpdateWishlist(name,author,connection,statement);
+        executeUpdateWishlist();
 
-        executeUpdateWishes(wishlist,connection,statement);
+        executeUpdateWishes();
 
-        return new Wishlist(wishlistId,name,author,wishlist);
+        return new Wishlist(wishlistId,name,author,wishes);
     }
 
-    private void executeUpdateWishlist(String name, String author, Connection connection,
-                                       PreparedStatement statement) throws SQLException {
+    private void executeUpdateWishlist() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                 "remote", "1234");
         statement = connection.prepareStatement("INSERT INTO wishlist(name, author)" +
@@ -169,8 +172,7 @@ public class WishlistRepo {
         System.out.println(name + " added to database!");
     }
 
-    private void executeUpdateWishes(ArrayList<Wish> wishes,Connection connection,
-                                     PreparedStatement statement) throws SQLException {
+    private void executeUpdateWishes() throws SQLException {
 
         wishlistId = determineId_Wishlist();
         System.out.println("wishlistId is determined to be " + wishlistId + " and wishes.size() equals " + wishes.size());
@@ -204,25 +206,12 @@ public class WishlistRepo {
            return -1;
     }
 
-    public int calculateNextIdWish(int extraToAdd) {
-
-        try {
-            executeQuerySelectAll();
-            while (resultSet.next()) {
-                if (resultSet.isLast()) {
-                    System.out.println(resultSet.getInt(4)+1 + extraToAdd + " is the next idWish...\n");
-                    return resultSet.getInt(4)+1+extraToAdd;
-                }
-            }
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return -1;
-    }
-
     public Map<Integer, Wishlist> getMap() {
         return map;
+    }
+
+    public ResultSet getResultSet () {
+        return resultSet;
     }
 
 }
