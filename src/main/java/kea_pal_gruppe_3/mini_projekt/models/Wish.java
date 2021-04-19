@@ -33,7 +33,6 @@ public class Wish {
         this.wish = wish;
         this.url = url;
         this.isReserved = isReserved;
-        this.isReserved = isReserved;
 
     }
 
@@ -55,6 +54,15 @@ public class Wish {
 
     public boolean isReserved() {
         return isReserved;
+    }
+
+    public String printIsReservedToButton() {
+        if (isReserved) {
+            return "UNRESERVE";
+        }
+        else {
+            return "RESERVE";
+        }
     }
 
     public void setReserved(boolean reserved) {

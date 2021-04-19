@@ -50,16 +50,25 @@ public class ExploreController {
     }
 
     @PostMapping("/change_reserved_status")
-    public String changeReservedStatus(@RequestParam(name = "wish") String idWish) {
+    public String changeReservedStatus(@RequestParam(name = "wishID") int idWish) {
+        boolean isReserved = false;
 
-        wishService.changeReservedStatus(currentWishlist.getId(),Integer.parseInt(idWish),true);
+        for (int i = 0; i < currentWishlist.getListOfWishes().size(); i++) {
+            if (currentWishlist.getListOfWishes().get(i).getIdWish() == idWish){
+                if (currentWishlist.getListOfWishes().get(i).isReserved()) {
+                    isReserved = true;
+                    currentWishlist.getListOfWishes().get(i).setReserved(false);
 
-        return "wishlist";
-    }
+                    System.out.println("Status of former isReserved is " + isReserved);
+                    break;
+                }
+                else {
+                    currentWishlist.getListOfWishes().get(i).setReserved(true);
+                }
+            }
+        }
 
-    @PostMapping("/change_unreserved_status")
-    public String changeUnreservedStatus(@RequestParam(name = "wish") String idWish) {
-        wishService.changeReservedStatus(currentWishlist.getId(),Integer.parseInt(idWish),false);
+        wishService.changeReservedStatus(currentWishlist.getId(),idWish,isReserved);
 
         return "wishlist";
     }

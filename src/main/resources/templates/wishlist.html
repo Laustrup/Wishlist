@@ -8,52 +8,26 @@
 
     <h1>list explore:</h1>
 
-    <!-- first iteration !-->
-    <ul th:each="list : ${list}">
-        <li th:text="${list.getWish}">onions</li>
-    </ul>
-
-
-
     <table>
         <tr>
             <th>wish</th>
             <th>url</th>
-            <th>reserve button</th>
-            <th>status for reservation?</th>
+            <th>reserved?</th>
         </tr>
-        <tr th:each="list : ${list}">
-            <td th:text="${list.getWish}"></td>
-            <td th:text="${list.getUrl}"></td>
 
+    <tr th:each="list : ${list}">
+        <td th:text="${list.getWish}"></td>
+        <td th:text="${list.getUrl}"></td>
 
-            <!-- if reserved !-->
-            <td th:if="${list.isReserved == true}">
-                <form action="/reserveWish" method="post">
-                    <button type="submit" name="wishID" th:value="${list.getIdWish}">unreserve!</button>
-                </form>
-            </td>
-
-            <!-- if not reserved !-->
-            <td th:if="${list.isReserved == false}">
-                <form action="/reserveWish" method="post">
-                    <button type="submit" name="wishID" th:value="${list.getIdWish}">reserve!</button>
-                </form>
-            </td>
-            <td th:text="${list.isReserved}"></td>
-        </tr>
-    </table>
-
-    <!-- new iteration !-->
-    <!--
-        <td th:if="${!wishList.isReserved} and ${userID != sessionUserID} and ${sessionUserID > 0}">
-            <form action="/reserveWish" method="post">
-                <button class="DelAndReserveBtn" type="submit" name="wishID" th:value="${wishList.wishID}">RESERVE</button>
+        <td>
+            <form action="/change_reserved_status" method="post">
+                <button type="submit" name="wishID" th:value="${list.getIdWish}"><p th:text="${list.printIsReservedToButton()}"></p></button>
             </form>
         </td>
-    !-->
 
-    <!-- share functionalilty !-->
+    </tr>
+    </table>
+
     <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
     <script>
         $(function () {

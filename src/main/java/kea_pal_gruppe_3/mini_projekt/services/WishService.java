@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class WishService {
 
-    private WishlistRepo repo;
+    private WishlistRepo repo = new WishlistRepo();
     private ResultSet repoResultSet;
 
     private Wishlist wishList;
