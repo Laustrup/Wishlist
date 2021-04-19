@@ -51,9 +51,8 @@ public class ExploreController {
 
     @PostMapping("/change_reserved_status")
     public String changeReservedStatus(@RequestParam(name = "wish") String idWish) {
-        int id = Integer.parseInt(idWish);
 
-        wishService.changeReservedStatus(currentWishlist.getId(),id,true);
+        wishService.changeReservedStatus(currentWishlist.getId(),Integer.parseInt(idWish),true);
 
         return "wishlist";
     }
@@ -66,8 +65,7 @@ public class ExploreController {
     }
 
     @PostMapping("/reserveWish")
-    public String reserveWish(@RequestParam(name = "wishID") String idWish, RedirectAttributes redirectAttributes){
-        wishService.changeReservedStatus(currentWishlist.getId(),Integer.parseInt(idWish),false);
+    public String reserveWish(@RequestParam(name = "wishID") int wishID, RedirectAttributes redirectAttributes){
 
         return "redirect:/explore";
     }
