@@ -16,7 +16,6 @@ public class Wish {
         this.idWish = idWish;
         this.wish = wish;
         this.url = url;
-
     }
 
     public Wish (String wish, String url,boolean hasMoreWishes) throws ExceptionInInitializerError {

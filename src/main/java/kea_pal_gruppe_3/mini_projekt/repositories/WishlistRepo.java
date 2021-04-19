@@ -126,7 +126,11 @@ public class WishlistRepo {
     }
 
     //TODO Classdiagram figure out the parameter inputs
-    public Wishlist putInWishlist(String name, String author, ArrayList<Wish> wishlist) {
+    public Wishlist putInWishlist(String name, String author, ArrayList<Wish> wishes) {
+
+        this.name = name;
+        this.author = author;
+        this.wishes = wishes;
 
         // empty temp Wishlist to return
         Wishlist newWishlist = null;
@@ -134,7 +138,7 @@ public class WishlistRepo {
         try {
             connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                     "remote", "1234");
-            setDatabase(name,author,wishlist,connection,statement);
+            setDatabase();
         }
         catch (SQLException e){
             System.out.println("\nSomething went wrong...\n" + e.getMessage());
@@ -148,19 +152,16 @@ public class WishlistRepo {
         return newWishlist;
     }
 
-    private Wishlist setDatabase(String name, String author,
-                                ArrayList<Wish> wishlist, Connection connection,
-                                PreparedStatement statement) throws SQLException {
+    private Wishlist setDatabase() throws SQLException {
 
-        executeUpdateWishlist(name,author,connection,statement);
+        executeUpdateWishlist();
 
-        executeUpdateWishes(wishlist,connection,statement);
+        executeUpdateWishes();
 
-        return new Wishlist(wishlistId,name,author,wishlist);
+        return new Wishlist(wishlistId,name,author,wishes);
     }
 
-    private void executeUpdateWishlist(String name, String author, Connection connection,
-                                       PreparedStatement statement) throws SQLException {
+    private void executeUpdateWishlist() throws SQLException {
         connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                 "remote", "1234");
         statement = connection.prepareStatement("INSERT INTO wishlist(name, author)" +
@@ -169,8 +170,7 @@ public class WishlistRepo {
         System.out.println(name + " added to database!");
     }
 
-    private void executeUpdateWishes(ArrayList<Wish> wishes,Connection connection,
-                                     PreparedStatement statement) throws SQLException {
+    private void executeUpdateWishes() throws SQLException {
 
         wishlistId = determineId_Wishlist();
         System.out.println("wishlistId is determined to be " + wishlistId + " and wishes.size() equals " + wishes.size());
