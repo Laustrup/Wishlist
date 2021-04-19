@@ -1,6 +1,6 @@
 package kea_pal_gruppe_3.mini_projekt.models;
 
-import kea_pal_gruppe_3.mini_projekt.repositories.WishlistRepo;
+import kea_pal_gruppe_3.mini_projekt.services.WishService;
 
 public class Wish {
 
@@ -11,7 +11,7 @@ public class Wish {
 
     private int addExtraToId = 0;
 
-    private WishlistRepo repo;
+    private WishService service;
 
     public Wish (int idWish, String wish, String url, boolean isReserved){
         this.idWish = idWish;
@@ -20,18 +20,16 @@ public class Wish {
         this.isReserved = isReserved;
     }
 
-    public Wish (String wish, String url,boolean isReserved, boolean hasMoreWishes) throws ExceptionInInitializerError {
+    public Wish (String wish, String url,boolean isReserved, boolean hasMoreWishes) {
 
-        repo = new WishlistRepo();
+        service = new WishService();
 
         if (hasMoreWishes) {
             addExtraToId++;
         }
 
-        this.idWish = repo.calculateNextIdWish(addExtraToId);
-        if (idWish == -1) {
-            throw new ExceptionInInitializerError();
-        }
+        this.idWish = service.calculateNextIdWish(addExtraToId);
+
         this.wish = wish;
         this.url = url;
         this.isReserved = isReserved;

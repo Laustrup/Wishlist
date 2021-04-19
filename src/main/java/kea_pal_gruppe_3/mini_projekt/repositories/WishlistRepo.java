@@ -50,7 +50,7 @@ public class WishlistRepo {
         return allWishlists;
     }
 
-    private void executeQuerySelectAll() throws SQLException {
+    public void executeQuerySelectAll() throws SQLException {
         // Communicates with MySQL
         connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                 "remote", "1234");
@@ -206,25 +206,12 @@ public class WishlistRepo {
            return -1;
     }
 
-    public int calculateNextIdWish(int extraToAdd) {
-
-        try {
-            executeQuerySelectAll();
-            while (resultSet.next()) {
-                if (resultSet.isLast()) {
-                    System.out.println(resultSet.getInt(4)+1 + extraToAdd + " is the next idWish...\n");
-                    return resultSet.getInt(4)+1+extraToAdd;
-                }
-            }
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return -1;
-    }
-
     public Map<Integer, Wishlist> getMap() {
         return map;
+    }
+
+    public ResultSet getResultSet () {
+        return resultSet;
     }
 
 }
