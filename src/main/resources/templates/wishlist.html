@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/head.html(currentPage='View')"></head>
+<head th:replace="fragments/head.html(customCSS='/stylesheets/wishlist.css')"></head>
 <body>
 <header th:replace="fragments/header.html"></header>
 <main>
@@ -10,6 +11,31 @@
     <ul th:each="list : ${list}">
         <li th:text="${list.getWish}"></li>
     </ul>
+
+
+
+
+    <script src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
+    <script>
+        $(function () {
+            $("button").click(function () {
+                var url = window.location.href;
+                var $temp = $("<input>");
+                $("body").append($temp);
+                $temp.val(url).select();
+                document.execCommand("copy");
+                $temp.remove();
+            });
+
+        })
+    </script>
+
+    <div class="tooltip">
+        <button onclick="myFunction()" onmouseout="outFunc()">
+            <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+            Copy link to share
+        </button>
+    </div>
 
 </main>
 <footer th:replace="fragments/footer.html"></footer>
