@@ -52,7 +52,7 @@ public class WishlistRepo {
 
     private void executeQuerySelectAll() throws SQLException {
         // Communicates with MySQL
-        connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+        connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                 "remote", "1234");
         // Makes an statement to each tables and gather the results into resultsets
 
@@ -129,7 +129,7 @@ public class WishlistRepo {
         Wishlist newWishlist = null;
 
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+            connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                     "remote", "1234");
             setDatabase(name,author,wishlist,connection,statement);
         }
@@ -158,7 +158,7 @@ public class WishlistRepo {
 
     private void executeUpdateWishlist(String name, String author, Connection connection,
                                        PreparedStatement statement) throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://13.53.216.245:3306/miniprojekt",
+        connection = DriverManager.getConnection("jdbc:mysql://13.53.214.68:3306/miniprojekt",
                 "remote", "1234");
         statement = connection.prepareStatement("INSERT INTO wishlist(name, author)" +
                 " VALUES (\"" + name + "`\", \"" + author + "\");");
