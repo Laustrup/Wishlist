@@ -6,14 +6,16 @@
 <header th:replace="fragments/header.html"></header>
 <main>
 
+    <h1>Your list has been created!</h1>
+
+<h3>Your list's name:</h3>
 <p th:text="${wishlist_name}"></p>
 
+<h3>Your name:</h3>
 <p th:text="${author_name}"></p>
 
-<p th:text="${wish_url}"></p>
 
-<p th:text="${wish_name}"></p>
-
+    <a href th:replace="fragments/go_back.html"></a>
 </main>
 <footer th:replace="fragments/footer.html"></footer>
 </body>
