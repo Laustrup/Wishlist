@@ -21,7 +21,7 @@ public class WishlistRepo {
     private String name = new String();
     private String author = new String();
 
-    private Map<Integer, Object> map = new HashMap<>();
+    private Map<Integer, Wishlist> map = new HashMap<>();
 
     // An arraylist to gather every wishes pr. wishlist into wishlist
     private ArrayList<Wish> wishes = new ArrayList<>();
@@ -221,7 +221,7 @@ public class WishlistRepo {
         return -1;
     }
 
-    public Map<Integer, Object> getMap() {
+    public Map<Integer, Wishlist> getMap() {
         return map;
     }
 
