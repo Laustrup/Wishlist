@@ -1,3 +1,11 @@
+main {
+    background-color: darkcyan;
+}
+
+.reserved{
+    text-decoration: line-through;
+}
+
 
 .tooltip {
     position: relative;
