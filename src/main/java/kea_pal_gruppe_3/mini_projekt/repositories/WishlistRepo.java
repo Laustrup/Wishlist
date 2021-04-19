@@ -28,6 +28,8 @@ public class WishlistRepo {
     // Wishlist to be returned
     private ArrayList<Wishlist> allWishlists;
 
+    private boolean isReserved = false;
+
     public ArrayList<Wishlist> getAllWishlists() {
 
         System.out.println("\ngetAllWishlists() beginning ***************************************************************");
@@ -75,9 +77,11 @@ public class WishlistRepo {
                 addToWishlists();
             }
 
+            isReserved = resultSet.getBoolean(8);
+
             if (!resultSet.isLast()) {
                 currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),
-                                        resultSet.getString(7), false);
+                                        resultSet.getString(7), isReserved);
                 wishes.add(currentWish);
                 System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
             }
@@ -88,7 +92,7 @@ public class WishlistRepo {
                 System.out.println(resultSet.getInt(1) + " is current wishlistId and " +
                         previousWishlistId + " is previous, isLast is " + resultSet.isLast());
                 currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),
-                                        resultSet.getString(7), false);
+                                        resultSet.getString(7), isReserved);
                 wishes.add(currentWish);
                 System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
                 addToWishlists();
@@ -100,6 +104,7 @@ public class WishlistRepo {
     }
 
     private int updateCurrentData() throws SQLException {
+
         name = resultSet.getString(2);
         author = resultSet.getString(3);
         System.out.println("\nName and authors = " + name + " - " + author);
@@ -182,9 +187,9 @@ public class WishlistRepo {
 
                 System.out.println("\nVariables are " + wishes.get(i).getIdWish() +
                         " - " + wishes.get(i).getWish() + " - " + wishes.get(i).getUrl());
-                statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url)" +
+                statement = connection.prepareStatement("INSERT INTO wish(id_wishlist,wish, url,isReserved)" +
                         " VALUES (" + wishlistId + ",\"" + wishes.get(i).getWish() +
-                        "\", \"" + wishes.get(i).getUrl() + "\");");
+                        "\", \"" + wishes.get(i).getUrl() + "\", FALSE" + ");");
                 System.out.println("Statement prepared!");
                 statement.executeUpdate();
                 System.out.println(wishes.get(i).getWish() + " added to database!");

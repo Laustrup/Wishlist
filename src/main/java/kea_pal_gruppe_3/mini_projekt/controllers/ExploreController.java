@@ -50,13 +50,13 @@ public class ExploreController {
     }
 
     @PostMapping("/change_reserved_status")
-    public String changeReservedStatus(@RequestParam(name = "wishID") int idWish) {
-        boolean isReserved = false;
+    public String changeReservedStatus(@RequestParam(name = "wishID") int idWish, Model model) {
+        boolean isReserved = true;
 
         for (int i = 0; i < currentWishlist.getListOfWishes().size(); i++) {
             if (currentWishlist.getListOfWishes().get(i).getIdWish() == idWish){
                 if (currentWishlist.getListOfWishes().get(i).isReserved()) {
-                    isReserved = true;
+                    isReserved = false;
                     currentWishlist.getListOfWishes().get(i).setReserved(false);
 
                     System.out.println("Status of former isReserved is " + isReserved);
@@ -70,7 +70,12 @@ public class ExploreController {
 
         wishService.changeReservedStatus(currentWishlist.getId(),idWish,isReserved);
 
-        return "wishlist";
+        Map<Integer, Wishlist> allWishLists = wishlistRepo.getMap();
+        ArrayList<Wish> wishlists = allWishLists.get(currentWishlist.getId()).getListOfWishes();
+
+        model.addAttribute("list", wishlists);
+
+        return "wishlist.html";
     }
 
     @PostMapping("/reserveWish")

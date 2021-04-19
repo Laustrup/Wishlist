@@ -19,7 +19,7 @@ public class WishService {
 
     private Map<Integer, Wishlist> map = new HashMap<>();
 
-    private int nextReservedStatus;
+    private boolean nextReservedStatus;
 
     public int calculateNextIdWish(int extraToAdd) {
 
@@ -65,10 +65,10 @@ public class WishService {
         wishes = wishList.getListOfWishes();
 
         if (alreadyReserved) {
-            nextReservedStatus = 0;
+            nextReservedStatus = false;
         }
         else {
-            nextReservedStatus = 1;
+            nextReservedStatus = true;
         }
     }
 
