@@ -21,7 +21,7 @@ public class WishlistRepo {
     private String name = new String();
     private String author = new String();
 
-    private Map<String, Object> map = new HashMap<>();
+    private Map<Integer, Object> map = new HashMap<>();
 
     // An arraylist to gather every wishes pr. wishlist into wishlist
     private ArrayList<Wish> wishes = new ArrayList<>();
@@ -78,7 +78,6 @@ public class WishlistRepo {
             if (!resultSet.isLast()) {
                 currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7));
                 wishes.add(currentWish);
-                map.put(String.valueOf(currentWish.getIdWish()),currentWish);
                 System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
             }
 
@@ -89,7 +88,6 @@ public class WishlistRepo {
                         previousWishlistId + " is previous, isLast is " + resultSet.isLast());
                 currentWish = new Wish(resultSet.getInt(4), resultSet.getString(6),resultSet.getString(7));
                 wishes.add(currentWish);
-                map.put(String.valueOf(currentWish.getIdWish()),currentWish);
                 System.out.println("Wish added to wishes... " + resultSet.getString(6) + " - " + resultSet.getString(7));
                 addToWishlists();
             }
@@ -116,10 +114,15 @@ public class WishlistRepo {
         System.out.println("Wishlist id is " + wishlistId);
         System.out.println("\ncurrentWishlist created!");
 
+        map.put(currentWishlist.getId(),currentWishlist);
+        System.out.println(currentWishlist.getId() + " is the id of the wishlist added to map.");
+
         allWishlists.add(currentWishlist);
         System.out.println("\nWishlist updated with wishes!");
         wishes = new ArrayList<>();
         System.out.println("Wishes zeroed!\n");
+
+
     }
 
     //TODO Classdiagram figure out the parameter inputs
@@ -218,7 +221,7 @@ public class WishlistRepo {
         return -1;
     }
 
-    public Map<String, Object> getMap() {
+    public Map<Integer, Object> getMap() {
         return map;
     }
 

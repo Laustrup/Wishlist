@@ -37,7 +37,7 @@ public class ExploreController {
 
         ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 
-        Map<String, Object> map = wishlistRepo.getMap();
+        Map<Integer, Object> map = wishlistRepo.getMap();
 
         ArrayList<Wish> tmp = null;
 
