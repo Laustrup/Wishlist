@@ -7,18 +7,20 @@ public class Wish {
     private int idWish;
     private String wish;
     private String url;
+    private boolean isReserved;
 
     private int addExtraToId = 0;
 
     private WishlistRepo repo;
 
-    public Wish (int idWish, String wish, String url){
+    public Wish (int idWish, String wish, String url, boolean isReserved){
         this.idWish = idWish;
         this.wish = wish;
         this.url = url;
+        this.isReserved = isReserved;
     }
 
-    public Wish (String wish, String url,boolean hasMoreWishes) throws ExceptionInInitializerError {
+    public Wish (String wish, String url,boolean isReserved, boolean hasMoreWishes) throws ExceptionInInitializerError {
 
         repo = new WishlistRepo();
 
@@ -32,6 +34,8 @@ public class Wish {
         }
         this.wish = wish;
         this.url = url;
+        this.isReserved = isReserved;
+        this.isReserved = isReserved;
 
     }
 
@@ -49,5 +53,13 @@ public class Wish {
 
     public String getUrl() {
         return url;
+    }
+
+    public boolean isReserved() {
+        return isReserved;
+    }
+
+    public void setReserved(boolean reserved) {
+        isReserved = reserved;
     }
 }

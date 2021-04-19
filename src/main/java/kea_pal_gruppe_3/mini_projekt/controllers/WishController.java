@@ -16,7 +16,7 @@ public class WishController {
 
     private WishlistRepo repo = new WishlistRepo();
     private ArrayList<Wish> wishes = new ArrayList<>();
-    private Wish wish = new Wish(null,null,false);
+    private Wish wish = new Wish(null,null,false,false);
 
     private boolean hasMoreWishes = false;
     private boolean areThereAnyWishes = false;
@@ -66,7 +66,7 @@ public class WishController {
         }
 
         try {
-            wishes.add(new Wish(wishName, wishURL,hasMoreWishes));
+            wishes.add(new Wish(wishName, wishURL,false, hasMoreWishes));
             hasMoreWishes = true;
             System.out.println("Wish added to wishes in /add_wish!");
             model.addAttribute("wishes",wishes);
