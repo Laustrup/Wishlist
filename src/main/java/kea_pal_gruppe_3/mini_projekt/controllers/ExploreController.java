@@ -16,7 +16,7 @@ public class ExploreController {
     private WishlistRepo wishlistRepo = new WishlistRepo();
 
     @GetMapping("/explore")
-    public String renderView(Model model) {
+    public String renderExplore(Model model) {
 
         ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 
@@ -33,21 +33,11 @@ public class ExploreController {
 
 
     @GetMapping("/wishlist/{list.getId}")
-    public String getWishlists(@PathVariable("list.getId") int id, Model model) {
+    public String renderIndividualList(@PathVariable("list.getId") int id, Model model) {
 
-        ArrayList<Wishlist> allWishLists = wishlistRepo.getAllWishlists();
 
-        Map<Integer, Object> map = wishlistRepo.getMap();
-
-        ArrayList<Wish> tmp = null;
-
-        for (int i = 0; i < allWishLists.size(); i++) {
-            if (allWishLists.get(i).getId() == id) {
-                tmp = allWishLists.get(i).getListOfWishes();
-                System.out.println("got id [" + id + "] Matching id with [" + allWishLists.get(i).getId() + "]");
-                break;
-            }
-        }
+        Map<Integer, Wishlist> allWishLists = wishlistRepo.getMap();
+        ArrayList<Wish> tmp = allWishLists.get(id).getListOfWishes();
 
         model.addAttribute("list", tmp);
         return "wishlist";
