@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ public class ExploreController {
 
     @GetMapping("/wishlist/{list.getId}")
     public String renderIndividualList(@PathVariable("list.getId") int id, Model model) {
+        wishlistRepo.getAllWishlists();
 
         Map<Integer, Wishlist> allWishLists = wishlistRepo.getMap();
         ArrayList<Wish> tmp = allWishLists.get(id).getListOfWishes();
@@ -45,12 +47,12 @@ public class ExploreController {
 
     @PostMapping("/change_reserved_status")
     public String changeReservedStatus(@RequestParam(name = "wishID") int idWish) {
-        boolean isReserved = true;
+        boolean isReserved = false;
 
         for (int i = 0; i < currentWishlist.getListOfWishes().size(); i++) {
             if (currentWishlist.getListOfWishes().get(i).getIdWish() == idWish){
                 if (currentWishlist.getListOfWishes().get(i).isReserved()) {
-                    isReserved = false;
+                    isReserved = true;
                     currentWishlist.getListOfWishes().get(i).setReserved(false);
                     break;
                 }

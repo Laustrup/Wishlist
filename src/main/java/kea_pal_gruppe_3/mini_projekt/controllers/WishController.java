@@ -1,5 +1,4 @@
 package kea_pal_gruppe_3.mini_projekt.controllers;
-//Lavet af Patrick
 
 import kea_pal_gruppe_3.mini_projekt.models.Wish;
 import kea_pal_gruppe_3.mini_projekt.repositories.WishlistRepo;
