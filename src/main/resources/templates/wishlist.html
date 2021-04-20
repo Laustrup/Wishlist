@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/head.html(currentPage='View')"></head>
 <head th:replace="fragments/head.html(customCSS='/stylesheets/wishlist.css')"></head>
 <body>
 <header th:replace="fragments/header.html"></header>
 <main>
 
-    <h1>list explore:</h1>
+    <h1>Selected wishlist:</h1>
 
-    <table>
+    <table class="overview">
         <tr>
-            <th>wish</th>
-            <th>url</th>
-            <th>reserved?</th>
+            <th>Wish:</th>
+            <th>Link</th>
+            <th>Reservation:</th>
         </tr>
 
     <tr th:each="list : ${list}">
         <td th:text="${list.getWish}"></td>
         <td th:text="${list.getUrl}"></td>
-        <td th:text="${list.isReserved}"></td>
-
         <td>
             <form action="/change_reserved_status" method="post">
                 <button type="submit" name="wishID" th:value="${list.getIdWish}"><p th:text="${list.printIsReservedToButton()}"></p></button>
