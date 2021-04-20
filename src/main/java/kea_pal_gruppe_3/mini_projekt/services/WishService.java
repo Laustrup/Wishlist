@@ -31,7 +31,6 @@ public class WishService {
 
             while (repoResultSet.next()) {
                 if (repoResultSet.isLast()) {
-                    System.out.println(repoResultSet.getInt(4)+1 + extraToAdd + " is the next idWish...\n");
                     return repoResultSet.getInt(4)+1+extraToAdd;
                 }
             }
