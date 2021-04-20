@@ -18,6 +18,7 @@
     <tr th:each="list : ${list}">
         <td th:text="${list.getWish}"></td>
         <td th:text="${list.getUrl}"></td>
+        <td th:text="${list.isReserved}"></td>
 
         <td>
             <form action="/change_reserved_status" method="post">
