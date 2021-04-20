@@ -73,9 +73,8 @@ public class ExploreController {
         Map<Integer, Wishlist> allWishLists = wishlistRepo.getMap();
         ArrayList<Wish> wishlists = allWishLists.get(currentWishlist.getId()).getListOfWishes();
 
-        model.addAttribute("list", wishlists);
-
-        return "wishlist.html";
+        int id = currentWishlist.getId();
+        return "redirect:/wishlist/"+id;
     }
 
     @PostMapping("/reserveWish")
