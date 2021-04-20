@@ -58,10 +58,10 @@ public class Wish {
 
     public String printIsReservedToButton() {
         if (isReserved) {
-            return "UNRESERVE";
+            return "reserved ✔️";
         }
         else {
-            return "RESERVE";
+            return "unreserved ❌";
         }
     }
 

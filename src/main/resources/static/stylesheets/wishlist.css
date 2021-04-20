@@ -1,9 +1,12 @@
-main {
-    background-color: darkcyan;
+
+.overview {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.reserved{
-    text-decoration: line-through;
+th {
+    padding-left: 56px;
+    padding-right: 56px;
 }
 
 
