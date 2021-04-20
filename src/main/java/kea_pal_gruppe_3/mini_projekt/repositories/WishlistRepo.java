@@ -62,8 +62,6 @@ public class WishlistRepo {
 
         while(resultSet.next()) {
             if (resultSet.getInt(1) > previousWishlistId) {
-                System.out.println(resultSet.getInt(1) + " is current wishlistId and " +
-                        previousWishlistId + " is previous, isLast is " + resultSet.isLast());
                 addToWishlists();
             }
 

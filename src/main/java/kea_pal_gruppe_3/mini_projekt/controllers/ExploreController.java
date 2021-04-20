@@ -28,12 +28,6 @@ public class ExploreController {
 
         model.addAttribute("list", allWishLists);
 
-        //Debugging
-        System.out.println("Size of array is: " + allWishLists.size());
-        for (int i = 0; i < allWishLists.size(); i++) {
-            System.out.println("array index " + i + " is: wishList id: " + allWishLists.get(i).getId());
-        }
-
         return "explore";
     }
 
@@ -50,7 +44,7 @@ public class ExploreController {
     }
 
     @PostMapping("/change_reserved_status")
-    public String changeReservedStatus(@RequestParam(name = "wishID") int idWish, Model model) {
+    public String changeReservedStatus(@RequestParam(name = "wishID") int idWish) {
         boolean isReserved = true;
 
         for (int i = 0; i < currentWishlist.getListOfWishes().size(); i++) {
@@ -58,8 +52,6 @@ public class ExploreController {
                 if (currentWishlist.getListOfWishes().get(i).isReserved()) {
                     isReserved = false;
                     currentWishlist.getListOfWishes().get(i).setReserved(false);
-
-                    System.out.println("Status of former isReserved is " + isReserved);
                     break;
                 }
                 else {
@@ -75,12 +67,7 @@ public class ExploreController {
 
         int id = currentWishlist.getId();
         return "redirect:/wishlist/"+id;
-    }
 
-    @PostMapping("/reserveWish")
-    public String reserveWish(@RequestParam(name = "wishID") int wishID, RedirectAttributes redirectAttributes){
-
-        return "redirect:/explore";
     }
 
 }
